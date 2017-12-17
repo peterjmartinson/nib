@@ -17,6 +17,12 @@
 
   app.use(express.static(__dirname + '/public'));
 
+  app.post('/', function(req, res) {
+    console.log("You just tried to post, Sucker!");
+    console.log(req.body.thenote);
+    res.redirect('/');
+  });
+
   app.listen(port, function (){
     console.log('Server is listening to %d port in %s mode',port,app.settings.env);
   });
