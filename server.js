@@ -4,6 +4,7 @@
   const express    = require('express'),
         app        = express(),
         port       = process.env.PORT || 3000,
+        noteCtrl   = require('./controllers/note.ctrl'),
         MongoClient = require('mongodb').MongoClient,
         assert = require('assert'),
         bodyParser = require('body-parser');
@@ -23,18 +24,13 @@
 
     assert.equal(null, err);
     console.log("Successfully connected to MongoDB.");
+
+    // ROUTES
     app.post('/', function(req, res) {
-      console.log("You just tried to post, Sucker!");
-      console.log(req.body.thenote);
+      noteCtrl.postNote(req, res, db);
+    })
 
-      db.collection("notes").insertOne({
-        created_date : new Date(),
-        note_text : req.body.thenote
-      });
-      res.redirect('/');
-
-    });
-
+    // START SERVER
     app.listen(port, function (){
       console.log('Server is listening to %d port in %s mode',port,app.settings.env);
     });
