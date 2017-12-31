@@ -27,7 +27,8 @@
 
     // ROUTES
     app.post('/', function(req, res) {
-      noteCtrl.postNote(req, res, db);
+      noteCtrl.postNote(req, res, db, console.log);
+      res.redirect('/'); // reload index.html
     })
 
     // START SERVER
