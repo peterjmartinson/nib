@@ -14,18 +14,20 @@ describe('noteCtrl', function() {
   describe('postNote()', function() {
 
     // SETUP
-    let req = {
-      body: { thenote: 'test note' }
-    } // why doesn't this take in `before`?  also, db doesn't take
-    let res = {};
-    let db = {};
+    function insertOne(ops, callback) {
+      let error  = null,
+          result = { ran: true, ops: ops };
+      callback(error, result);
+    }
+
+    let test_note = "test note",
+        req = { body: { thenote: test_note } },
+        res = {},
+        db = {};
+
     db.collection = function(name) {
       return {
-        insertOne: function(query, callback) {
-          let error  = null,
-              result = { ops: 1, doc: query };
-          callback(error, result);
-        }
+        insertOne: insertOne
       }
     }
 
@@ -34,9 +36,16 @@ describe('noteCtrl', function() {
       assert.equal(typeof noteCtrl.postNote, 'function');
     });
     
-    it('should return some data', function(done) {
+    it('should run the query', function(done) {
       noteCtrl.postNote(req, res, db, function(err, result) {
-        assert.deepEqual(result.ops, 1);
+        assert.ok(result.ran);
+        done();
+      });
+    });
+
+    it('should post data', function(done) {
+      noteCtrl.postNote(req, res, db, function(err, result) {
+        assert.deepEqual(result.ops.note_text, test_note);
         done();
       });
     });
