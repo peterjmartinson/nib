@@ -10,7 +10,8 @@
       note_text : req.body.thenote
     }
 
-    db.collection("notes").insertOne(new_document, function(err, result) {
+    db.collection("notes")
+      .insertOne(new_document, function(err, result) {
       callback(err, result.ops);
     });
 

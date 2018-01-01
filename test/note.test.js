@@ -11,22 +11,27 @@ describe('The canary', function() {
 
 describe('noteCtrl', function() {
 
-  before(function() {
-    let db = {};
-  });
+  // before(function() {
+  //   let db = {};
+  // });
 
   describe('postNote()', function() {
 
-    before(function() {
+    beforeEach(function() {
       let req = {
-        body: { the_note: 'test note' }
+        body: { thenote: 'test note' }
       }
 
-      db.collection = function(collection) {
+      let db = {};
+
+      db.collection = function(name) {
         return {
           insertOne: function(query, callback) {
-            return 1
+            let error  = null,
+                result = { ops: 1 };
+            callback(error, result);
           }
+        }
       }
     });
 
@@ -34,9 +39,28 @@ describe('noteCtrl', function() {
       assert.equal(typeof noteCtrl.postNote, 'function');
     });
     
-    it('should return some data', function() {
-      
-      assert.notEqual(noteCtrl.postNote(req, res, db), 
+    it('should return some data', function(done) {
+      let req = {
+        body: { thenote: 'test note' }
+      } // why doesn't this take in `before`?  also, db doesn't take
+      let res = {};
+      let db = {};
+      db.collection = function(name) {
+        return {
+          insertOne: function(query, callback) {
+            let error  = null,
+                result = { ops: 1 };
+            callback(error, result);
+          }
+        }
+      }
+      console.log("req:  " + req);
+      console.log("res:  " + res);
+      console.log("db:  " + db);
+      noteCtrl.postNote(req, res, db, function(err, result) {
+        assert.deepEqual(result.ops, 1);
+        done();
+      });
     });
   });
 
