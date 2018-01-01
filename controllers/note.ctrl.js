@@ -2,8 +2,8 @@
   'use strict';
 
   function postNote(req, res, db, callback) {
-    // console.log("You just tried to post, Sucker!");
-    // console.log(req.body.thenote);
+    console.log("You just tried to post, Sucker!");
+    console.log(req.body.thenote);
 
     let new_document = {
       created_date : new Date(),
