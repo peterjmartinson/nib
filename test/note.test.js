@@ -43,6 +43,13 @@ describe('noteCtrl', function() {
       });
     });
 
+    it('should create a date', function(done) {
+      noteCtrl.postNote(req, res, db, function(err, result) {
+        assert(result.ops.created_date instanceof Date);
+        done();
+      });
+    });
+
     it('should post data', function(done) {
       noteCtrl.postNote(req, res, db, function(err, result) {
         assert.deepEqual(result.ops.note_text, test_note);
