@@ -11,6 +11,8 @@ describe('The canary', function() {
 
 describe('noteCtrl', function() {
 
+
+
   describe('postNote()', function() {
 
     // SETUP
@@ -57,6 +59,12 @@ describe('noteCtrl', function() {
       });
     });
 
+  });
+
+  describe('getAllNotes()', function() {
+    it('should exist', function() {
+      assert.equal(typeof noteCtrl.getAllNotes, 'function');
+    });
   });
 
 });
