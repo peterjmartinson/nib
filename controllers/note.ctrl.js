@@ -12,7 +12,7 @@
 
     db.collection("notes")
       .insertOne(new_document, function(err, result) {
-      callback(err, result.ops);
+      callback(err, result);
     });
 
   }
