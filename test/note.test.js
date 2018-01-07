@@ -15,17 +15,19 @@ describe('noteCtrl', function() {
 
   describe('postNote()', function() {
 
-    // SETUP
-    function insertOne(ops, callback) {
-      let error  = null,
-          result = { ran: true, ops: ops };
-      callback(error, result);
-    }
-
-    let test_note = "test note",
+    let test_date, test_data,
+        ran = false,
+        test_note = "test note",
         req = { body: { thenote: test_note } },
         res = {},
         db = {};
+
+    function insertOne(ops, callback) {
+      test_date = ops.created_date;
+      test_data = ops.note_text;
+      ran = true;
+      return ops;
+    }
 
     db.collection = function(name) {
       return {
@@ -38,25 +40,19 @@ describe('noteCtrl', function() {
       assert.equal(typeof noteCtrl.postNote, 'function');
     });
     
-    it('should run the query', function(done) {
-      noteCtrl.postNote(req, res, db, function(err, result) {
-        assert.ok(result.ran);
-        done();
-      });
+    it('should run the query', function() {
+      noteCtrl.postNote(req, res, db);
+      assert.equal(ran, true);
     });
 
-    it('should create a date', function(done) {
-      noteCtrl.postNote(req, res, db, function(err, result) {
-        assert(result.ops.created_date instanceof Date);
-        done();
-      });
+    it('should create a date', function() {
+      noteCtrl.postNote(req, res, db);
+      assert(test_date instanceof Date);
     });
 
-    it('should post data', function(done) {
-      noteCtrl.postNote(req, res, db, function(err, result) {
-        assert.deepEqual(result.ops.note_text, test_note);
-        done();
-      });
+    it('should post data', function() {
+      noteCtrl.postNote(req, res, db);
+      assert.equal(test_data, test_note);
     });
 
   });
