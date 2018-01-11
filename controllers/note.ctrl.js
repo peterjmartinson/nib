@@ -14,7 +14,7 @@
 
   }
 
-  function getAllNotes(req, res, db, callback) {
+  function getAllNotes(req, res, db) {
   }
 
 
