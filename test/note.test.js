@@ -22,7 +22,7 @@ describe('noteCtrl', function() {
         res = {},
         db = {};
 
-    function insertOne(ops, callback) {
+    function insertOne(ops) {
       test_date = ops.created_date;
       test_data = ops.note_text;
       ran = true;
