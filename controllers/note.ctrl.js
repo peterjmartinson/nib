@@ -17,7 +17,7 @@
   function getAllNotes(req, res, db, callback) {
     let cursor = db.collection("notes").find();
     cursor.toArray(function(err, docs) {
-      assert.equal(null, err);
+      // assert.equal(null, err); // assert needs to be defined
       callback(docs);
     });
   }

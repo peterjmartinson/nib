@@ -32,7 +32,15 @@
     })
     
     app.get('/get', function(req, res) {
-      res.redirect('/getscreen.html');
+      noteCtrl.getAllNotes(req, res, db, function(docs) {
+        let output = '<h3>'
+        for(var index = 0; index < docs.length; index++) {
+          output += JSON.stringify(docs[index]);
+        }
+        output += '</h3>';
+          
+        res.send(output);
+      });
     });
 
     // START SERVER
