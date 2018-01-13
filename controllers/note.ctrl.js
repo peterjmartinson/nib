@@ -14,7 +14,8 @@
 
   }
 
-  function getAllNotes(req, res, db) {
+  function getAllNotes(req, res, db, callback) {
+    db.collection("notes").find({}, callback(err, docs));
   }
 
 

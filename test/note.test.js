@@ -58,9 +58,31 @@ describe('noteCtrl', function() {
   });
 
   describe('getAllNotes()', function() {
+    let ran = false,
+        req = {},
+        res = {},
+        db = {};
+
+    function find(query, callback) {
+      ran = true;
+      callback(err, documents);
+    }
+
+    db.collection = function(name) {
+      return {
+        find: find
+      }
+    }
+
     it('should exist', function() {
       assert.equal(typeof noteCtrl.getAllNotes, 'function');
     });
+
+    it('should run .find()', function() {
+      noteCtrl.getAllNotes(req, res, db);
+      assert.equal(ran, true);
+    });
+      
   });
 
 });

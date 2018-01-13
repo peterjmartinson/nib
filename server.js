@@ -30,6 +30,10 @@
       noteCtrl.postNote(req, res, db);
       res.redirect('/'); // reload index.html
     })
+    
+    app.get('/get', function(req, res) {
+      res.redirect('/getscreen.html');
+    });
 
     // START SERVER
     app.listen(port, function (){
