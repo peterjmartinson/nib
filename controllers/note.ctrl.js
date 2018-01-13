@@ -15,7 +15,11 @@
   }
 
   function getAllNotes(req, res, db, callback) {
-    db.collection("notes").find({}, callback(err, docs));
+    let cursor = db.collection("notes").find();
+    cursor.toArray(function(err, docs) {
+      assert.equal(null, err);
+      callback(docs);
+    });
   }
 
 
