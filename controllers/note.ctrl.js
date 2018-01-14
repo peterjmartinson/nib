@@ -1,10 +1,9 @@
 (function() {
   'use strict';
 
-  function postNote(req, res, db, callback) {
-    // console.log("You just tried to post, Sucker!");
-    // console.log(req.body.thenote);
+  const assert = require('assert');
 
+  function postNote(req, res, db, callback) {
     let new_document = {
       created_date : new Date(),
       note_text : req.body.thenote
@@ -17,12 +16,10 @@
   function getAllNotes(req, res, db, callback) {
     let cursor = db.collection("notes").find();
     cursor.toArray(function(err, docs) {
-      // assert.equal(null, err); // assert needs to be defined
+      assert.equal(null, err);
       callback(docs);
     });
   }
-
-
 
   module.exports = {
     postNote,

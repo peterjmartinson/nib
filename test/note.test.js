@@ -58,14 +58,23 @@ describe('noteCtrl', function() {
   });
 
   describe('getAllNotes()', function() {
+    // SETUP
     let ran = false,
         req = {},
         res = {},
         db = {};
 
-    function find(query, callback) {
+    function toArray(callback) {
+      let err = null,
+          docs = '';
       ran = true;
-      callback(err, documents);
+      callback(null, docs);
+    }
+
+    function find() {
+      return {
+        toArray: toArray
+      }
     }
 
     db.collection = function(name) {
@@ -74,15 +83,17 @@ describe('noteCtrl', function() {
       }
     }
 
+    // TESTS
     it('should exist', function() {
       assert.equal(typeof noteCtrl.getAllNotes, 'function');
     });
 
-    it('should run .find()', function() {
-      noteCtrl.getAllNotes(req, res, db);
-      assert.equal(ran, true);
+    it('should run .toArray()', function() {
+      noteCtrl.getAllNotes(req, res, db, function(docs) {
+        assert.equal(ran, true);
+      });
     });
-      
+
   });
 
 });
