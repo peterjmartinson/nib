@@ -13,6 +13,8 @@
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(logError);
+  app.set('views', './views');
+  app.set('view engine', 'pug');
 
   function logError(err, req, res, next) {
     console.log('Error: ', err.stack);
@@ -21,7 +23,7 @@
 
   app.use(express.static(__dirname + '/public'));
 
-  const compiledPug = pug.compileFile('./templates/displayNotes.pug');
+  const compiledPug = pug.compileFile('./views/displayNotes.pug');
 
   MongoClient.connect('mongodb://localhost:27017/nib', function(err, db) {
 
@@ -47,8 +49,7 @@
     });
 
     app.get('/pug', function(req, res) {
-      let temp = compiledPug({ name: 'P Dawg' });
-      res.send(temp);
+      res.render('displayNotes', { title: 'Hey', message: 'Hello there!' });
     });
 
     // START SERVER
