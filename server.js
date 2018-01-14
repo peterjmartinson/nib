@@ -48,8 +48,16 @@
       });
     });
 
-    app.get('/pug', function(req, res) {
-      res.render('displayNotes', { title: 'Hey', message: 'Hello there!' });
+    app.get('/dbcontents', function(req, res) {
+      noteCtrl.getAllNotes(req, res, db, function(docs) {
+        let ass = ['one', 'two', 'three'];
+        let render_object = {
+          title: 'nib | DB Contents',
+          message: 'Contents of the nib database',
+          ass: docs
+        };
+        res.render('displayNotes', render_object);
+      });
     });
 
     // START SERVER

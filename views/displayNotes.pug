@@ -3,3 +3,10 @@ html
     title= title
   body
       h1= message
+      ul
+        each val, index in ass
+          li= index + ': ' + JSON.stringify(val)
+          ul
+            li= '_id: ' + val._id
+            li= 'created_date: ' + val.created_date
+            li= 'note_text: ' + val.note_text
