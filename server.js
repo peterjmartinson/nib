@@ -7,7 +7,8 @@
         noteCtrl   = require('./controllers/note.ctrl'),
         MongoClient = require('mongodb').MongoClient,
         assert = require('assert'),
-        bodyParser = require('body-parser');
+        bodyParser = require('body-parser'),
+        pug = require('pug');
 
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
@@ -19,6 +20,8 @@
   }
 
   app.use(express.static(__dirname + '/public'));
+
+  const compiledPug = pug.compileFile('./templates/displayNotes.pug');
 
   MongoClient.connect('mongodb://localhost:27017/nib', function(err, db) {
 
@@ -41,6 +44,11 @@
           
         res.send(output);
       });
+    });
+
+    app.get('/pug', function(req, res) {
+      let temp = compiledPug({ name: 'P Dawg' });
+      res.send(temp);
     });
 
     // START SERVER
