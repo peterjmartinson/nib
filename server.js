@@ -59,6 +59,17 @@
       });
     });
 
+    function makeNoteDisplay(note) {
+      let title = note.note_text.substring(0, indexOf('<br>'));
+      let body = note.note_text;
+      let created_date = note.created_date;
+      return {
+        title: title,
+        body: body,
+        created_date: created_date
+      }
+    }
+
     // START SERVER
     app.listen(port, function (){
       console.log('Server is listening to %d port in %s mode',port,app.settings.env);

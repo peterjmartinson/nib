@@ -6,7 +6,8 @@
   function postNote(req, res, db, callback) {
     let new_document = {
       created_date : new Date(),
-      note_text : noteToHTML(req.body.thenote)
+      note_text : noteToHTML(req.body.thenote),
+      title: req.body.thenote.substring(0, req.body.thenote.indexOf('\r\n'))
     }
 
     db.collection("notes").insertOne(new_document);
