@@ -4,7 +4,7 @@ html
   body
       h1= message
       ul
-        each val, index in ass
+        each val, index in docs
           li= index + ': ' + JSON.stringify(val)
           ul
             li= '_id: ' + val._id

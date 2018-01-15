@@ -6,7 +6,7 @@
   function postNote(req, res, db, callback) {
     let new_document = {
       created_date : new Date(),
-      note_text : req.body.thenote
+      note_text : noteToHTML(req.body.thenote)
     }
 
     db.collection("notes").insertOne(new_document);
@@ -19,6 +19,11 @@
       assert.equal(null, err);
       callback(docs);
     });
+  }
+
+  function noteToHTML(note) {
+    let carriage_return = /\r\n/g;
+    return note.replace(carriage_return, '<br>');
   }
 
   module.exports = {

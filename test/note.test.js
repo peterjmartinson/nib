@@ -55,6 +55,14 @@ describe('noteCtrl', function() {
       assert.equal(test_data, test_note);
     });
 
+    it('should replace carriage returns with HTML', function() {
+      multiline_note = "first line\r\nsecond line";
+      req = { body: { thenote: multiline_note } };
+      let expected_note = "first line<br>second line"
+      noteCtrl.postNote(req, res, db);
+      assert.equal(test_data, expected_note);
+    });
+
   });
 
   describe('getAllNotes()', function() {
