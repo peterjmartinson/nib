@@ -2,11 +2,10 @@ html
   head
     title= title
   body
-      h1= message
-      ul
-        each val, index in docs
-          li= index + ': ' + JSON.stringify(val)
-          ul
-            li= '_id: ' + val._id
-            li= 'created_date: ' + val.created_date
-            li= 'note_text: ' + val.note_text
+    h1= message
+    ul.note-list
+      each val in docs
+        li(id=val._id)
+          span.list-title= val.title ? val.title : 'untitled'
+          br
+          span.list-date= val.created_date
