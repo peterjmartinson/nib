@@ -6,7 +6,7 @@
   function postNote(req, res, db, callback) {
     let new_document = {
       created_date : new Date(),
-      note_text : noteToHTML(req.body.thenote),
+      note_text : req.body.thenote,
       title: req.body.thenote.substring(0, req.body.thenote.indexOf('\r\n'))
     }
 
@@ -22,14 +22,14 @@
     });
   }
 
-  function noteToHTML(note) {
-    let carriage_return = /\r\n/g;
-    return note.replace(carriage_return, '<br>');
+  function getNoteList(req, res, db, callback) {
+    return 1;
   }
 
   module.exports = {
     postNote,
-    getAllNotes
+    getAllNotes,
+    getNoteList
   }
 
 }())
