@@ -45,6 +45,13 @@
       });
     });
 
+    app.get('/test', function(req, res) {
+      let render_object = {
+        title: 'Testing...'
+      };
+      res.render('test', render_object);
+    });
+
     // START SERVER
     app.listen(port, function (){
       console.log('Server is listening to %d port in %s mode',port,app.settings.env);

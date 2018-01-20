@@ -1,0 +1,13 @@
+html
+  head
+    title= title
+  body
+    div#cowport
+    button(id="12345" onclick="key.sendKeyPress('12345')")
+      send 12345
+    script(src="./views/test.js")
+    script.
+      var key = new Key;
+      key.sendKeyPress('');
+
+
