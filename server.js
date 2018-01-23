@@ -50,6 +50,7 @@
         title: 'Testing...'
       };
       res.render('test', render_object);
+      // res.redirect('/onclick.html');
     });
 
     // START SERVER
