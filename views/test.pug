@@ -2,9 +2,13 @@ html
   head
     title= title
   body
+
+    ul.button-list
+      each id in id_list
+        button(id=id onclick="key.sendKeyPress(id)")
+          <span>send #{id}</span>
+        
     div#cowport
-    button(id="12345" onclick="key.sendKeyPress('12345')")
-      <span>send 12345</span>
     script(src="./js/test.js")
     script.
       var key = new Key;
