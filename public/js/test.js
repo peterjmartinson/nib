@@ -1,4 +1,4 @@
-var Key = function() {
+let Key = function() {
 
   function sendKeyPress(keypress) {
     document.getElementById("cowport").innerHTML = keypress;
@@ -10,3 +10,8 @@ var Key = function() {
 
 };
 
+window.key = new Key;
+
+    // script.
+    //   var key = new Key;
+    //   key.sendKeyPress('');
