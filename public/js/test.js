@@ -11,7 +11,3 @@ let Key = function() {
 };
 
 window.key = new Key;
-
-    // script.
-    //   var key = new Key;
-    //   key.sendKeyPress('');
