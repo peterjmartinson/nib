@@ -24,18 +24,15 @@ let Handler = function() {
     
   // not working yet!!
   let getNote = function(id) {
-    $get('/api/todo', function(data) {
-      var todos = JSON.parse(data);
-      callback.call(this, todos.filter(function (todo) {
-        for (var q in query) {
-          if (query[q] !== todo[q]) {
-            return false;
-          }
-        }
-        return true;
-      }));
+    let route = '/get/:' + id;
+    $get(route, function(data) {
+      let payload = JSON.parse(data);
+      callback.call(this, payload);
     });
   }
+}
+
+window.handler = new Handler;
   
 
 

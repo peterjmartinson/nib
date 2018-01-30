@@ -45,6 +45,18 @@
       });
     });
 
+    app.get("/get/:id", function(req, res) {
+      let id = req.params.id;
+      noteCtrl.getAllNotes(req, res, db, function(docs) {
+        let render_object = {
+          title: "Nib | Contents",
+          message: id,
+          docs: docs
+        };
+        res.render("displayNotes", render_object);
+      });
+    });
+
     app.get("/test", function(req, res) {
       let render_object = {
         title: "Testing...",
