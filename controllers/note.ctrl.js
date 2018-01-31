@@ -24,7 +24,7 @@
 
   function getOneNote(req, res, db, callback) {
     let query = { _id: req.params.id.substring(1) };
-    let cursor = db.collection("notes").findOne(query);
+    let cursor = db.collection("notes").find(query);
     cursor.toArray(function(err, docs) {
       assert.equal(null, err);
       callback(docs[0]);
