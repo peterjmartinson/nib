@@ -2,6 +2,7 @@
   'use strict';
 
   const assert = require('assert');
+  const ObjectID = require('mongodb').ObjectID;
 
   function postNote(req, res, db, callback) {
     let new_document = {
@@ -23,7 +24,7 @@
   }
 
   function getOneNote(req, res, db, callback) {
-    let query = { _id: ObjectId(req.params.id.substring(1)) };
+    let query = { _id: ObjectID.createFromHexString(req.params.id.substring(1)) };
     let cursor = db.collection("notes").find(query);
     cursor.toArray(function(err, docs) {
       assert.equal(null, err);
