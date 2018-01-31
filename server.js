@@ -23,10 +23,12 @@
 
   app.use(express.static(__dirname + "/public"));
 
-  MongoClient.connect("mongodb://localhost:27017/nib", function(err, db) {
+  MongoClient.connect("mongodb://localhost:27017", function(err, client) {
 
     assert.equal(null, err);
     console.log("Successfully connected to MongoDB.");
+
+    const db = client.db("nib");
 
     // ROUTES
     app.post("/", function(req, res) {
