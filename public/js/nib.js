@@ -27,42 +27,14 @@ let Handler = function() {
     let route = '/get/:' + id;
     $get(route, function(data) {
       let payload = JSON.parse(data);
-      callback.call(this, payload);
+      console.log(payload);
     });
+  }
+
+  return {
+    getNote: getNote
   }
 }
 
 window.handler = new Handler;
   
-
-
-
-}
-
-window.handler = new Handler;
-
-
-
-
-
-
-
-
-
-
-
-
-let Key = function() {
-
-  function sendKeyPress(keypress) {
-    document.getElementById("cowport").innerHTML = keypress;
-  }
-
-  return {
-    sendKeyPress: sendKeyPress
-  };
-
-};
-
-window.key = new Key;
-

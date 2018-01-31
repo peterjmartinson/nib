@@ -93,6 +93,44 @@ describe('noteCtrl', function() {
     });
   });
 
+  describe('getOneNote()', function() {
+    // SETUP
+    let ran = false,
+        req = {},
+        res = {},
+        db = {};
+
+    function toArray(callback) {
+      let err = null,
+          docs = '';
+      ran = true;
+      callback(null, docs);
+    }
+
+    function find() {
+      return {
+        toArray: toArray
+      }
+    }
+
+    db.collection = function(name) {
+      return {
+        find: find
+      }
+    }
+
+    // TESTS
+    it('should exist', function() {
+      assert.equal(typeof noteCtrl.getAllNotes, 'function');
+    });
+
+    it('should run .toArray()', function() {
+      noteCtrl.getAllNotes(req, res, db, function(docs) {
+        assert.equal(ran, true);
+      });
+    });
+  });
+
   describe('getNoteList()', function() {
     // SETUP
     let ran = false,

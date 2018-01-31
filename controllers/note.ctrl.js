@@ -22,6 +22,15 @@
     });
   }
 
+  function getOneNote(req, res, db, callback) {
+    let query = { _id: req.params.id.substring(1) };
+    let cursor = db.collection("notes").findOne(query);
+    cursor.toArray(function(err, docs) {
+      assert.equal(null, err);
+      callback(docs[0]);
+    });
+  }
+
   function getNoteList(req, res, db, callback) {
     return 1;
   }
@@ -29,7 +38,8 @@
   module.exports = {
     postNote,
     getAllNotes,
-    getNoteList
+    getNoteList,
+    getOneNote
   }
 
 }())
