@@ -23,10 +23,11 @@
   }
 
   function getOneNote(req, res, db, callback) {
-    let query = { _id: req.params.id.substring(1) };
+    let query = { _id: ObjectId(req.params.id.substring(1)) };
     let cursor = db.collection("notes").find(query);
     cursor.toArray(function(err, docs) {
       assert.equal(null, err);
+      console.log("from getOneNote: " + docs);
       callback(docs[0]);
     });
   }

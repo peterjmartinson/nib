@@ -49,6 +49,7 @@
 
     app.get("/get/:id", function(req, res) {
       noteCtrl.getOneNote(req, res, db, function(doc) {
+        console.log(doc);
         res.send(doc);
       });
     });

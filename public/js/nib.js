@@ -13,7 +13,8 @@ let Handler = function() {
       if (request.readyState === DONE) {
         if (request.status === OK) {
           let response = request.responseText;
-          callback(response);
+          // callback(response);
+          callback(request);
         }
         else {
           console.log('GET Error: ' + request.status);
@@ -26,8 +27,9 @@ let Handler = function() {
   let getNote = function(id) {
     let route = '/get/:' + id;
     $get(route, function(data) {
-      let payload = JSON.parse(data);
+      let payload = JSON.stringify(data);
       console.log(payload);
+      // console.log("the data: " + data);
     });
   }
 
