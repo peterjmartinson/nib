@@ -24,12 +24,12 @@
   }
 
   function getOneNote(req, res, db, callback) {
-    let query = { _id: ObjectID.createFromHexString(req.params.id.substring(1)) };
-    let cursor = db.collection("notes").find(query);
-    cursor.toArray(function(err, docs) {
+    let id = req.params.id.substring(1),
+        query = { _id: ObjectID.createFromHexString(id) },
+        cursor = db.collection("notes");
+    cursor.findOne(query, function(err, doc) {
       assert.equal(null, err);
-      console.log("from getOneNote: " + docs);
-      callback(docs[0]);
+      callback(doc);
     });
   }
 
