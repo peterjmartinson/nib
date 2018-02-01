@@ -4,7 +4,7 @@
   "description": "Basic note taking application",
   "main": "server.js",
   "scripts": {
-    "test": "test"
+    "test": "istanbul cover node_modules/mocha/bin/_mocha"
   },
   "repository": {
     "type": "git",
@@ -20,6 +20,7 @@
     "body-parser": "^1.17.2",
     "chai": "^4.1.1",
     "express": "^4.15.4",
+    "istanbul": "^0.4.5",
     "mocha": "^3.5.0",
     "mongodb": "^2.2.31",
     "pug": "^2.0.0-rc.3",

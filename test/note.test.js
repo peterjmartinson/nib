@@ -94,6 +94,19 @@ describe('noteCtrl', function() {
   });
 
   describe('getOneNote()', function() {
+  // should retrieve one full note object from the DB
+  // req: contains { params: { id: *hex string* } }
+  // res: doesn't need to contain anything
+  // var query: uses MongoDB's ObjectID dependency
+  // ObjectID: contains { function createFromHexString(id) }
+  // createFromHexString: returns some object (string?)
+  // db: contains { collection(*string*) { returns { findOne (query)}}}
+  // findOne: takes (query, callback)
+  // callback: takes (doc)
+  // doc: object of form {_id, created_date, note_text}
+  // ultimately, getOneNote should send a *doc* to the callback
+
+  // so, require MongoDB.ObjectID, fake everything else, and make sure a *doc* gets returned
     // SETUP
     let ran = false,
         req = {},
