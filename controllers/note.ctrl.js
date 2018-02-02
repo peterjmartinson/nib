@@ -23,24 +23,52 @@
     });
   }
 
+  /*
+   * Dependencies
+   * ============
+   *
+   * ObjectID.createFromHexString()
+   * db.collection("notes").findOne()
+  */
   function getOneNote(req, res, db, callback) {
-    let id = req.params.id.substring(1),
-        query = { _id: ObjectID.createFromHexString(id) },
-        cursor = db.collection("notes");
-    cursor.findOne(query, function(err, doc) {
-      assert.equal(null, err);
-      callback(doc);
-    });
+    let id    = getID(req),
+        query = makeQueryByID(id);
+    fetchDocByID(db, query, callback);
   }
 
-  function getNoteList(req, res, db, callback) {
-    return 1;
+  function getID(req) {
+    return req.params.id.substring(1);
   }
+
+  function makeQueryByID(id) {
+    return { _id: getMongoID(id) }
+  }
+
+  // Dependency!
+  function getMongoID(id) {
+    return ObjectID.createFromHexString(id);
+  }
+
+  // Dependency!
+  function fetchDocByID(db, query, callback) {
+    db.collection("notes")
+      .findOne(query, function(err, doc) {
+        assert.equal(null, err);
+        callback(doc);
+      });
+  }
+    
+
+
+
+
+
+
+  
 
   module.exports = {
     postNote,
     getAllNotes,
-    getNoteList,
     getOneNote
   }
 

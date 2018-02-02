@@ -1,5 +1,6 @@
 const MongoClient = require('mongodb').MongoClient,
       assert = require('assert'),
+      ObjectID = require('mongodb').ObjectID,
       noteCtrl = require('../controllers/note.ctrl');
 
 
@@ -109,71 +110,35 @@ describe('noteCtrl', function() {
   // so, require MongoDB.ObjectID, fake everything else, and make sure a *doc* gets returned
     // SETUP
     let ran = false,
-        req = {},
+        req = { params: { id: ":5a36ef2c2b349f420293926e"}},
         res = {},
         db = {};
 
-    function toArray(callback) {
+    function findOne(query, callback) {
       let err = null,
           docs = '';
       ran = true;
       callback(null, docs);
     }
 
-    function find() {
-      return {
-        toArray: toArray
-      }
-    }
-
+    // note:  this replaces the other db, because it's passed as a parameter
     db.collection = function(name) {
       return {
-        find: find
+        findOne: findOne
       }
     }
 
     // TESTS
     it('should exist', function() {
-      assert.equal(typeof noteCtrl.getAllNotes, 'function');
+      assert.equal(typeof noteCtrl.getOneNote, 'function');
     });
 
-    it('should run .toArray()', function() {
-      noteCtrl.getAllNotes(req, res, db, function(docs) {
+    it('should run .findOne()', function() {
+      noteCtrl.getOneNote(req, res, db, function(doc) {
         assert.equal(ran, true);
       });
     });
-  });
 
-  describe('getNoteList()', function() {
-    // SETUP
-    let ran = false,
-        req = {},
-        res = {},
-        db = {};
-
-    function toArray(callback) {
-      let err = null,
-          docs = '';
-      ran = true;
-      callback(null, docs);
-    }
-
-    function find() {
-      return {
-        toArray: toArray
-      }
-    }
-
-    db.collection = function(name) {
-      return {
-        find: find
-      }
-    }
-
-    // TESTS
-    it('should exist', function() {
-      assert.equal(typeof noteCtrl.getNoteList, 'function');
-    });
 
   });
 
