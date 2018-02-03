@@ -54,7 +54,7 @@
     db.collection("notes")
       .findOne(query, function(err, doc) {
         assert.equal(null, err);
-        callback(doc);
+        callback(doc, query);
       });
   }
     

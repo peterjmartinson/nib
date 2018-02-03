@@ -110,13 +110,12 @@ describe('noteCtrl', function() {
   // so, require MongoDB.ObjectID, fake everything else, and make sure a *doc* gets returned
     // SETUP
     let ran = false,
-        req = { params: { id: ":5a36ef2c2b349f420293926e"}},
+        req = { params: { id: ":aaaaaaaaaaaaaaaaaaaaaaaa"}},
         res = {},
         db = {};
 
     function findOne(query, callback) {
-      let err = null,
-          docs = '';
+      let err = null, docs = '';
       ran = true;
       callback(null, docs);
     }
@@ -139,6 +138,12 @@ describe('noteCtrl', function() {
       });
     });
 
+    it('should create a query', function() {
+      let expected_query = { _id: "aaaaaaaaaaaaaaaaaaaaaaaa" };
+      noteCtrl.getOneNote(req, res, db, function(doc, query) {
+        assert.equal(query._id, expected_query._id);
+      });
+    });
 
   });
 
