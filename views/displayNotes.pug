@@ -6,10 +6,8 @@ html
     h1= message
     ul.note-list
       each val in docs
-        // li(id=val._id onclick="key.sendKeyPress(id)")
         li(id=val._id onclick="handler.getNote(id)")
           span.list-title= val.title ? val.title : 'untitled'
           br
           span.list-date= val.created_date
-    // script(src="./js/test.js")
     script(src="./js/nib.js")
