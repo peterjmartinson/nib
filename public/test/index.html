@@ -3,7 +3,7 @@
   <meta charset="utf-8">
   <title>Mocha Tests</title>
   <!-- <link href="https://cdn.rawgit.com/mochajs/mocha/2.2.5/mocha.css" rel="stylesheet" /> -->
-  <link href="../node_modules/mocha/mocha.css" rel="stylesheet" />
+  <link href="./mocha/mocha.css" rel="stylesheet" />
 </head>
 <body>
   <div id="mocha"></div>
@@ -11,11 +11,13 @@
   <!-- <script src="https://cdn.rawgit.com/jquery/jquery/2.1.4/dist/jquery.min.js"></script> -->
   <!-- <script src="https://cdn.rawgit.com/Automattic/expect.js/0.3.1/index.js"></script> -->
   <!-- <script src="https://cdn.rawgit.com/mochajs/mocha/2.2.5/mocha.js"></script> -->
-  <script src="../node_modules/mocha/mocha.js"></script>
+  <script src="./mocha/mocha.js"></script>
+  <script src="./chai/chai.js"></script>
 
   <script>mocha.setup('bdd')</script>
   <script src="nib.test.js"></script>
   <script>
+    const assert = chai.assert;
     mocha.checkLeaks();
     // mocha.globals(['jQuery']);
     mocha.run();

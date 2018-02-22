@@ -1,3 +1,4 @@
+const assert = window.assert;
 
 describe('The canary', function() {
   it('should tweet', function() {
