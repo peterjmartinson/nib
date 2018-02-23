@@ -3,7 +3,7 @@
 
   const express    = require("express"),
         app        = express(),
-        port       = process.env.PORT || 3000,
+        port       = process.env.PORT || 3001,
         noteCtrl   = require("./controllers/note.ctrl"),
         MongoClient = require("mongodb").MongoClient,
         assert = require("assert"),
@@ -55,11 +55,12 @@
     });
 
     app.get("/test", function(req, res) {
-      let render_object = {
-        title: "Testing...",
-        id_list: [1, 2, 3, 4, 5, 6, 7]
-      };
-      res.render("test", render_object);
+      res.send("/test/index");
+      // let render_object = {
+      //   title: "Testing...",
+      //   id_list: [1, 2, 3, 4, 5, 6, 7]
+      // };
+      // res.render("test", render_object);
       // res.redirect("/onclick.html");
     });
 

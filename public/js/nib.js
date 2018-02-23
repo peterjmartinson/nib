@@ -51,7 +51,8 @@ let Handler = function() {
   }
 
   return {
-    getNote: getNote
+    getNote: getNote,
+    $get: $get
   };
 };
 
