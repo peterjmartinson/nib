@@ -1,6 +1,7 @@
 // const assert = window.assert;
 const assert = chai.assert;
 
+
 describe("The canary", function() {
   it("should tweet", function() {
     assert.equal(1, 1);
@@ -9,6 +10,7 @@ describe("The canary", function() {
 
 describe("$get", function() {
   it("should exist", function() {
+    let spy = sinon.spy();
     assert.equal(typeof window.handler.$get, "function");
   });
 
@@ -47,6 +49,36 @@ describe("$get", function() {
     // assert.equal(ran, true);
     // assert.equal(XMLHttpRequest.verb, "GET");
     // done();
+  });
+
+});
+
+var xhr, requests;
+
+describe("$get, take two", function() {
+ 
+  before(function () {
+    xhr = sinon.useFakeXMLHttpRequest();
+    requests = [];
+    xhr.onCreate = function (req) { requests.push(req); };
+  });
+
+  after(function () {
+    xhr.restore();
+  });
+
+  it("makes a GET request for todo items", function () {
+    let callback = sinon.spy();
+    window.handler.$get("route", callback);
+
+    // assert.equal(callback.called, true);
+    
+    
+    
+    // getTodos(42, sinon.spy());
+
+    assert.equal(requests.length, 1);
+    // assert.match(requests[0].url, "/todo/42/items");
   });
 
 });
