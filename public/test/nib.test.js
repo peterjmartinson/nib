@@ -14,49 +14,8 @@ describe("$get", function() {
     assert.equal(typeof window.handler.$get, "function");
   });
 
-  before (function() {
-    let original_xhr = new XMLHttpRequest(); // not a constructor?
-    console.log(original_xhr);
-    let ran = false;
-    XMLHttpRequest = function() {
-      ran = true;
-      return {
-        verb: '',
-        route: '',
-        open: function(verb, route) {
-          this.verb = verb;
-          this.route = route;
-        },
-        send: function() { return false; },
-        readyState: 4,
-        status: 200,
-        responseText: "Test response text",
-        onreadystatechange: null
-      };
-    };
-    console.log(XMLHttpRequest);
-  });
+  let xhr, requests;
 
-  it("should make a new XMLHttpRequest", function(done) {
-
-    window.handler.$get("route", function(response) {
-      console.log(response);
-      assert.equal(1,2);
-      assert.equal(response, "Tests response text");
-      done();
-    });
-    // console.log(XMLHttpRequest.verb);
-    // assert.equal(ran, true);
-    // assert.equal(XMLHttpRequest.verb, "GET");
-    // done();
-  });
-
-});
-
-var xhr, requests;
-
-describe("$get, take two", function() {
- 
   before(function () {
     xhr = sinon.useFakeXMLHttpRequest();
     requests = [];
@@ -67,22 +26,28 @@ describe("$get, take two", function() {
     xhr.restore();
   });
 
-  it("makes a GET request for todo items", function () {
+  it("makes a GET request", function () {
     let callback = sinon.spy();
-    window.handler.$get("butts", callback);
+    let test_route = "Alligator Scales";
+    let test_id = "1000",
+        test_date = "2017-12-30T20:28:32.477Z",
+        test_note_text = "Crocodile Tears";
+    window.handler.$get(test_route, callback);
 
-    // assert.equal(callback.called, true);
-    
-    
-    
-    // getTodos(42, sinon.spy());
-
-    console.log("requests: " + JSON.stringify(requests.status));
+    requests[0].respond(
+      200,
+      { "Content-Type": "application/json; charset=utf-8" },
+      '{ "_id":' + test_id + ', "created_date":' + test_date + ', "note_text":' + test_note_text + '}'
+    );
+    console.log("requests: " + JSON.stringify(requests));
     assert.equal(requests.length, 1);
-    assert.equal(requests[0].url, "butts");
+    assert.equal(requests[0].url, test_route);
+    assert.equal(true, callback.called);
   });
 
 });
+
+
 
 
 // response header:
@@ -93,5 +58,6 @@ describe("$get, take two", function() {
 // ETag: W/"64-P8aWgbindDbqJVEKr71hidCTO+M"
 // Date: Mon, 26 Feb 2018 00:33:48 GMT
 // Connection: keep-alive
+// { "_id": "5a47f6f0e1dad547899ea2ee", "created_date": "2017-12-30T20:28:32.477Z", "note_text": "rockwell" }
 
 // this.requests[0].respond(200, { "Content-Type": "application/json" }, '[{ "id": 12, "comment": "Hey there" }]');
