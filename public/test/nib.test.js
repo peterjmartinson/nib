@@ -69,7 +69,7 @@ describe("$get, take two", function() {
 
   it("makes a GET request for todo items", function () {
     let callback = sinon.spy();
-    window.handler.$get("route", callback);
+    window.handler.$get("butts", callback);
 
     // assert.equal(callback.called, true);
     
@@ -77,8 +77,21 @@ describe("$get, take two", function() {
     
     // getTodos(42, sinon.spy());
 
+    console.log("requests: " + JSON.stringify(requests.status));
     assert.equal(requests.length, 1);
-    // assert.match(requests[0].url, "/todo/42/items");
+    assert.equal(requests[0].url, "butts");
   });
 
 });
+
+
+// response header:
+// HTTP/1.1 200 OK
+// X-Powered-By: Express
+// Content-Type: application/json; charset=utf-8
+// Content-Length: 100
+// ETag: W/"64-P8aWgbindDbqJVEKr71hidCTO+M"
+// Date: Mon, 26 Feb 2018 00:33:48 GMT
+// Connection: keep-alive
+
+// this.requests[0].respond(200, { "Content-Type": "application/json" }, '[{ "id": 12, "comment": "Hey there" }]');
