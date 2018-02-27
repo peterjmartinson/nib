@@ -26,10 +26,13 @@ let Handler = function() {
   let getNote = function(id) {
     let route = "/get/:" + id;
     $get(route, function(data) {
-      let display_note = parseNote(data);
-      document.getElementById("cowport").innerHTML = display_note;
+      displayNote(data);
     });
   };
+
+  function displayNote(data) {
+    document.getElementById("cowport").innerHTML = parseNote(data);
+  }
 
   function parseDate(note_object) {
     let created_date = new Date(note_object.created_date),

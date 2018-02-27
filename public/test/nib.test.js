@@ -105,5 +105,29 @@ describe("getNote()", function() {
   });
 
 
+  it("should send the note to the DisplayNote function", function() {
+    let original = document.getElementById;
+    let test_id = "1000";
+    let test_response = '{ "_id": "1000", "created_date": "2017-12-30T20:28:32.477Z", "note_text": "Crocodile Tears" }';
+    let ran = false;
+
+    document.getElementById = function(id) {
+      ran = true;
+      return {
+        innerHTML: ''
+      }
+    }
+
+    window.handler.getNote(test_id);
+    requests[0].respond(
+      200,
+      { "Content-Type": "application/json; charset=utf-8" },
+      test_response
+    );
+
+    assert.ok(ran);
+    
+    document.getElementById = original;
+  });
 
 });
