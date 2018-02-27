@@ -76,16 +76,34 @@ describe("$get", function() {
 });
 
 
+describe("getNote()", function() {
+
+  // XMLHttpRequest setup
+  let xhr, requests;
+
+  beforeEach(function () {
+    xhr = sinon.useFakeXMLHttpRequest();
+    requests = [];
+    xhr.onCreate = function (req) { requests.push(req); };
+  });
+
+  afterEach(function () {
+    xhr.restore();
+  });
+
+  it("should exist", function() {
+    assert.equal(typeof window.handler.getNote, "function");
+  });
+
+  it("should call the correct route", function() {
+    let test_id = "1000";
+    let expected_route = "/get/:" + test_id;
+
+    window.handler.getNote(test_id);
+
+    assert.equal(requests[0].url, expected_route);
+  });
 
 
-// response header:
-// HTTP/1.1 200 OK
-// X-Powered-By: Express
-// Content-Type: application/json; charset=utf-8
-// Content-Length: 100
-// ETag: W/"64-P8aWgbindDbqJVEKr71hidCTO+M"
-// Date: Mon, 26 Feb 2018 00:33:48 GMT
-// Connection: keep-alive
-// { "_id": "5a47f6f0e1dad547899ea2ee", "created_date": "2017-12-30T20:28:32.477Z", "note_text": "rockwell" }
 
-// this.requests[0].respond(200, { "Content-Type": "application/json" }, '[{ "id": 12, "comment": "Hey there" }]');
+});

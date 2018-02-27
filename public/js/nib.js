@@ -21,7 +21,7 @@ let Handler = function() {
       }
     };
   }
-    
+
   // not working yet!!
   let getNote = function(id) {
     let route = "/get/:" + id;
