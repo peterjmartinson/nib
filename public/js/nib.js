@@ -13,7 +13,6 @@ let Handler = function() {
       if (request.readyState === DONE) {
         if (request.status === OK) {
           let response = request.responseText;
-          console.log(request);
           callback(response);
         }
         else {

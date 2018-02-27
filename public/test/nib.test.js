@@ -10,39 +10,67 @@ describe("The canary", function() {
 
 describe("$get", function() {
   it("should exist", function() {
-    let spy = sinon.spy();
     assert.equal(typeof window.handler.$get, "function");
   });
 
   let xhr, requests;
 
-  before(function () {
+  beforeEach(function () {
     xhr = sinon.useFakeXMLHttpRequest();
     requests = [];
     xhr.onCreate = function (req) { requests.push(req); };
   });
 
-  after(function () {
+  afterEach(function () {
     xhr.restore();
   });
 
   it("makes a GET request", function () {
     let callback = sinon.spy();
     let test_route = "Alligator Scales";
-    let test_id = "1000",
-        test_date = "2017-12-30T20:28:32.477Z",
-        test_note_text = "Crocodile Tears";
+
     window.handler.$get(test_route, callback);
 
+    assert.equal(requests.length, 1);
+  });
+
+  it("opens the correct route", function () {
+    let callback = sinon.spy();
+    let test_route = "Alligator Scales";
+
+    window.handler.$get(test_route, callback);
+
+    assert.equal(requests[0].url, test_route);
+  });
+
+  it("takes a response", function () {
+    let callback = sinon.spy();
+    let test_route = "Alligator Scales";
+    let test_response = '{ "_id": "1000", "created_date": "2017-12-30T20:28:32.477Z", "note_text": "Crocodile Tears" }';
+
+    window.handler.$get(test_route, callback);
     requests[0].respond(
       200,
       { "Content-Type": "application/json; charset=utf-8" },
-      '{ "_id":' + test_id + ', "created_date":' + test_date + ', "note_text":' + test_note_text + '}'
+      test_response
     );
-    console.log("requests: " + JSON.stringify(requests));
-    assert.equal(requests.length, 1);
-    assert.equal(requests[0].url, test_route);
+
     assert.equal(true, callback.called);
+  });
+
+  it("gets the correct response payload", function () {
+    let callback = sinon.spy();
+    let test_route = "Alligator Scales";
+    let test_response = '{ "_id": "1000", "created_date": "2017-12-30T20:28:32.477Z", "note_text": "Crocodile Tears" }';
+
+    window.handler.$get(test_route, callback);
+    requests[0].respond(
+      200,
+      { "Content-Type": "application/json; charset=utf-8" },
+      test_response
+    );
+
+    assert.equal(true, callback.calledWith(test_response));
   });
 
 });
