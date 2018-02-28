@@ -13,6 +13,7 @@ describe("$get", function() {
     assert.equal(typeof window.handler.$get, "function");
   });
 
+  // ------------------------------- SET UP
   let xhr, requests;
 
   beforeEach(function () {
@@ -25,6 +26,7 @@ describe("$get", function() {
     xhr.restore();
   });
 
+  // ------------------------------- TESTS
   it("makes a GET request", function () {
     let callback = sinon.spy();
     let test_route = "Alligator Scales";
@@ -46,14 +48,14 @@ describe("$get", function() {
   it("takes a response", function () {
     let callback = sinon.spy();
     let test_route = "Alligator Scales";
-    let test_response = '{ "_id": "1000", "created_date": "2017-12-30T20:28:32.477Z", "note_text": "Crocodile Tears" }';
+    let xhr = {
+      header: { "Content-Type": "application/json; charset=utf-8" },
+      status: 200,
+      response: '{ "_id": "1000", "created_date": "2017-12-30T20:28:32.477Z", "note_text": "Crocodile Tears" }'
+    }
 
     window.handler.$get(test_route, callback);
-    requests[0].respond(
-      200,
-      { "Content-Type": "application/json; charset=utf-8" },
-      test_response
-    );
+    requests[0].respond( xhr.status, xhr.header, xhr.response);
 
     assert.equal(true, callback.called);
   });
@@ -61,16 +63,31 @@ describe("$get", function() {
   it("gets the correct response payload", function () {
     let callback = sinon.spy();
     let test_route = "Alligator Scales";
-    let test_response = '{ "_id": "1000", "created_date": "2017-12-30T20:28:32.477Z", "note_text": "Crocodile Tears" }';
+    let xhr = {
+      header: { "Content-Type": "application/json; charset=utf-8" },
+      status: 200,
+      response: '{ "_id": "1000", "created_date": "2017-12-30T20:28:32.477Z", "note_text": "Crocodile Tears" }'
+    }
 
     window.handler.$get(test_route, callback);
-    requests[0].respond(
-      200,
-      { "Content-Type": "application/json; charset=utf-8" },
-      test_response
-    );
+    requests[0].respond( xhr.status, xhr.header, xhr.response);
 
-    assert.equal(true, callback.calledWith(test_response));
+    assert.equal(true, callback.calledWith(null, xhr.response));
+  });
+
+  it("responds gracefully to non-202 status", function () {
+    let callback = sinon.spy();
+    let test_route = "Alligator Scales";
+    let xhr = {
+      header: { "Content-Type": "application/json; charset=utf-8" },
+      status: 404,
+      response: ''
+    }
+
+    window.handler.$get(test_route, callback);
+    requests[0].respond( xhr.status, xhr.header, xhr.response);
+
+    assert.equal(true, callback.calledWith(xhr.status));
   });
 
 });
@@ -105,29 +122,42 @@ describe("getNote()", function() {
   });
 
 
-  it("should send the note to the DisplayNote function", function() {
-    let original = document.getElementById;
+  // ideally, getNote is in the Controller
+  // and displayNote is in the View
+  // -- the View takes the note pieces and builds the display_note
+  it("should send the note to the browser", function() {
     let test_id = "1000";
-    let test_response = '{ "_id": "1000", "created_date": "2017-12-30T20:28:32.477Z", "note_text": "Crocodile Tears" }';
-    let ran = false;
-
-    document.getElementById = function(id) {
-      ran = true;
-      return {
-        innerHTML: ''
-      }
+    let xhr = {
+      header: { "Content-Type": "application/json; charset=utf-8" },
+      status: 200,
+      response: '{ "_id": "1000", "created_date": "2017-12-30T20:28:32.477Z", "note_text": "Crocodile Tears" }'
     }
+    let result = '';
+    let expected_note = 'Date: <strong>December 30, 2017</strong><br>Note:<br>Crocodile Tears'
 
     window.handler.getNote(test_id);
-    requests[0].respond(
-      200,
-      { "Content-Type": "application/json; charset=utf-8" },
-      test_response
-    );
+    requests[0].respond( xhr.status, xhr.header, xhr.response);
+    result = document.getElementById("cowport").innerHTML;
 
-    assert.ok(ran);
+    assert.equal(result, expected_note);
     
-    document.getElementById = original;
+  });
+
+  it("should respond gracefully if there is no note", function() {
+    let test_id = "1000";
+    let xhr = {
+      header: { "Content-Type": "application/json; charset=utf-8" },
+      status: 404,
+      response: ''
+    }
+    let error_response = "<em>Whoops! No Note!</em>";
+    let result = '';
+
+    window.handler.getNote(test_id);
+    requests[0].respond( xhr.status, xhr.header, xhr.response);
+    result = document.getElementById("cowport").innerHTML;
+
+    assert.equal(result, error_response);
   });
 
 });

@@ -13,10 +13,10 @@ let Handler = function() {
       if (request.readyState === DONE) {
         if (request.status === OK) {
           let response = request.responseText;
-          callback(response);
+          callback(null, response);
         }
         else {
-          console.log("GET Error: " + request.status);
+          callback(request.status);
         }
       }
     };
@@ -25,11 +25,19 @@ let Handler = function() {
   // not working yet!!
   let getNote = function(id) {
     let route = "/get/:" + id;
-    $get(route, function(data) {
-      displayNote(data);
+    $get(route, function(err, data) {
+      if (err) {
+        displayError();
+      }
+      else {
+        displayNote(data);
+      }
     });
   };
 
+  function displayError() {
+    document.getElementById("cowport").innerHTML = "<em>Whoops! No Note!</em>";
+  }
   function displayNote(data) {
     document.getElementById("cowport").innerHTML = parseNote(data);
   }
