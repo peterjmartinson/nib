@@ -1,8 +1,10 @@
 html
   head
     title= title
+    link(rel="stylesheet" href="./css/style.css" type="text/css")
   body
     div#cowport
+    textarea(id="edit-note" rows="20" cols"75")
     h1= message
     ul.note-list
       each val in docs

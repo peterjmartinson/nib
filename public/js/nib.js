@@ -38,8 +38,10 @@ let Handler = function() {
   function displayError() {
     document.getElementById("cowport").innerHTML = "<em>Whoops! No Note!</em>";
   }
+
   function displayNote(data) {
     document.getElementById("cowport").innerHTML = parseNote(data);
+    document.getElementById("edit-note").value = parseNote(data);
   }
 
   function parseDate(note_object) {
