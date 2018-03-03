@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Nib | Styling</title>
+  <style>
+    html {
+      font-size: 10px;
+      height: 100vh;
+    }
+    body {
+      font-family: sans-serif;
+      font-size: 1.5rem;
+      margin: 0px;
+      height: 100vh;
+    }
+    .container {
+      display: block;
+      height: 100vh;
+    }
+    .hack {
+      width: 300px;
+      height: 100%;
+    }
+    #top-left {
+      display: inline-block;
+      position: absolute;
+      float: left;
+      background-color: salmon;
+      width: 300px;
+      height: 3rem;
+    }
+    #top-right {
+      background-color: lightblue;
+      margin-left: 300px;
+      height: 3rem;
+    }
+    #bottom-left {
+      float: left;
+      background-color: lightgreen;
+      width: 300px;
+    }
+    #bottom-right {
+      background-color: lightgray;
+      margin-left: 300px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div id="top-left">Search</div>
+    <div id="top-right">Options</div>
+    <div class="hack">
+      <div id="bottom-left">Note list</div>
+    </div>
+    <div id="bottom-right">Note text</div>
+  </div>
+
+</body>
+</html>
