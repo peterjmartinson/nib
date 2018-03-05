@@ -18,43 +18,142 @@
       display: block;
       height: 100vh;
     }
-    .hack {
+    .left {
+      display: inline-block;
+      position: absolute;
+      float: left;
       width: 300px;
       height: 100%;
     }
     #top-left {
-      display: inline-block;
-      position: absolute;
-      float: left;
       background-color: salmon;
-      width: 300px;
-      height: 3rem;
+      height: 10%;
+    }
+    #bottom-left {
+      background-color: lightgreen;
+      overflow: scroll;
+      max-height: 90%;
+    }
+    .right {
+      margin-left: 300px;
+      height: 100%;
     }
     #top-right {
       background-color: lightblue;
-      margin-left: 300px;
-      height: 3rem;
-    }
-    #bottom-left {
-      float: left;
-      background-color: lightgreen;
-      width: 300px;
+      height: 10%;
     }
     #bottom-right {
       background-color: lightgray;
-      margin-left: 300px;
+      height: 90%;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <div id="top-left">Search</div>
-    <div id="top-right">Options</div>
-    <div class="hack">
-      <div id="bottom-left">Note list</div>
+    <div class="left">
+      <div id="top-left">Search</div>
+      <div id="bottom-left">
+        Note List
+        <ul>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+          <li>Item</li>
+        </ul>
+      </div>
     </div>
-    <div id="bottom-right">Note text</div>
+    <div class="right">
+      <div id="top-right">Options</div>
+      <div id="bottom-right">Note text</div>
+    </div>
   </div>
-
 </body>
 </html>
