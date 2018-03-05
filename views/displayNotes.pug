@@ -1,15 +1,22 @@
 html
   head
     title= title
-    link(rel="stylesheet" href="./css/style.css" type="text/css")
+    link(rel="stylesheet" href="./css/displayNotes.css" type="text/css")
   body
-    div#cowport
-    textarea(id="edit-note" rows="20" cols"75")
-    h1= message
-    ul.note-list
-      each val in docs
-        li(id=val._id onclick="handler.getNote(id)")
-          span.list-title= val.title ? val.title : 'untitled'
-          br
-          span.list-date= val.created_date
+    div.container
+      div.left
+        div#top-left
+        div#bottom-left
+          h1= message
+          ul.note-list
+            each val in docs
+              li(id=val._id onclick="handler.getNote(id)")
+                span.list-title= val.title ? val.title : 'untitled'
+                br
+                span.list-date= val.created_date
+      div.right
+        div#top-right
+        div#bottom-right
+          div#cowport
+          textarea(id="edit-note" rows="20" cols"75")
     script(src="./js/nib.js")
