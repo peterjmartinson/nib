@@ -59,9 +59,17 @@ body {
   height: 90%;
   box-sizing: border-box;
   border-left: 1px solid black;
+  display: flex;
 }
+
+textarea {
+  flex: 1;
+}
+
+
 
 .list ul {
   list-style-type: none;
 }
+
 
