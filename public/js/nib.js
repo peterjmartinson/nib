@@ -22,7 +22,6 @@ let Handler = function() {
     };
   }
 
-  // not working yet!!
   let getNote = function(id) {
     let route = "/get/:" + id;
     $get(route, function(err, data) {
@@ -36,12 +35,11 @@ let Handler = function() {
   };
 
   function displayError() {
-    document.getElementById("cowport").innerHTML = "<em>Whoops! No Note!</em>";
+    document.getElementById("edit-note").value = "Whoops! No Note!";
   }
 
   function displayNote(data) {
-    document.getElementById("cowport").innerHTML = parseNote(data);
-    document.getElementById("edit-note").value = parseNote(data);
+    document.getElementById("edit-note").value = JSON.parse(data).note_text;
   }
 
   function parseDate(note_object) {
