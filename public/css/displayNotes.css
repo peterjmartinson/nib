@@ -64,6 +64,11 @@ body {
 
 textarea {
   flex: 1;
+  border: 0px;
+}
+
+textarea:focus {
+  outline: none;
 }
 
 
