@@ -1,7 +1,7 @@
 const MongoClient = require('mongodb').MongoClient,
       assert = require('assert'),
       ObjectID = require('mongodb').ObjectID,
-      noteCtrl = require('../controllers/note.ctrl');
+      noteCtrl = require('../src/controllers/note.ctrl');
 
 
 describe('The canary', function() {
