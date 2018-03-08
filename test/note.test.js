@@ -2,6 +2,7 @@ const MongoClient = require('mongodb').MongoClient,
       assert = require('assert'),
       ObjectID = require('mongodb').ObjectID,
       noteCtrl = require('../src/controllers/note.ctrl');
+      noteView = require('../src/view/note.view');
 
 
 describe('The canary', function() {
@@ -147,5 +148,19 @@ describe('noteCtrl', function() {
 
   });
 
+});
+
+describe('noteView', function() {
+
+  describe ('viewNotes()', function() {
+
+    it('should exist', function() {
+      assert.equal(typeof noteView.viewNotes, 'function');
+    });
+
+    it('should return an array', function() {
+    });
+
+  });
 });
 
