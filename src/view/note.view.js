@@ -12,6 +12,11 @@
   }
 
   function viewNotes(docs) {
+    let output_docs = []
+    for (let i = 0; i < docs.length; i++) {
+      console.log(i + ": " + parseDate(docs[i].created_date));
+    }
+    return docs;
   }
 
 
