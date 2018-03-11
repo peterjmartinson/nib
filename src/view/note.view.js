@@ -13,10 +13,12 @@
 
   function viewNotes(docs) {
     let output_docs = []
+    console.log(docs.length);
     for (let i = 0; i < docs.length; i++) {
-      console.log(i + ": " + parseDate(docs[i].created_date));
+      output_docs.push(docs[i]);
     }
-    return docs;
+    console.log(output_docs);
+    return output_docs;
   }
 
 
