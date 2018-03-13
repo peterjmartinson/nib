@@ -12,12 +12,10 @@
   }
 
   function viewNotes(docs) {
-    let output_docs = []
-    console.log(docs.length);
+    let output_docs = new Array();
     for (let i = 0; i < docs.length; i++) {
       output_docs.push(docs[i]);
     }
-    console.log(output_docs);
     return output_docs;
   }
 

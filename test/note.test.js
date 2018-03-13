@@ -62,11 +62,14 @@ describe('noteCtrl', function() {
     let ran = false,
         req = {},
         res = {},
-        db = {};
+        db = {},
+        doc_01 = { _id: 1000, created_date: new Date(2017-12-01), modified_date: new Date(2017-12-01), note_text: 'test 1000' },
+        doc_02 = { _id: 1001, created_date: new Date(2017-12-02), modified_date: new Date(2017-12-02), note_text: 'test 1001' },
+        doc_03 = { _id: 1002, created_date: new Date(2017-12-03), modified_date: new Date(2017-12-03), note_text: 'test 1002' };
 
     function toArray(callback) {
       let err = null,
-          docs = '';
+          docs = [doc_01, doc_02, doc_03];
       ran = true;
       callback(null, docs);
     }
@@ -93,22 +96,34 @@ describe('noteCtrl', function() {
         assert.equal(ran, true);
       });
     });
+
+    it('should pass an array to a callback', function() {
+      noteCtrl.getAllNotes(req, res, db, function(argument) {
+        assert.ok(argument instanceof Array);
+      });
+    });
+
+    it('should pass an array with "created_date" to a callback', function() {
+      assert.ok(false);
+    });
+
+    it('should pass an array with "title" to a callback', function() {
+      assert.ok(false);
+    });
+
+    it('should pass an array with "modified_date" to a callback', function() {
+      assert.ok(false);
+    });
+
+    it('should pass an array with "note_text" to a callback', function() {
+      assert.ok(false);
+    });
+
+
   });
 
   describe('getOneNote()', function() {
-  // should retrieve one full note object from the DB
-  // req: contains { params: { id: *hex string* } }
-  // res: doesn't need to contain anything
-  // var query: uses MongoDB's ObjectID dependency
-  // ObjectID: contains { function createFromHexString(id) }
-  // createFromHexString: returns some object (string?)
-  // db: contains { collection(*string*) { returns { findOne (query)}}}
-  // findOne: takes (query, callback)
-  // callback: takes (doc)
-  // doc: object of form {_id, created_date, note_text}
-  // ultimately, getOneNote should send a *doc* to the callback
 
-  // so, require MongoDB.ObjectID, fake everything else, and make sure a *doc* gets returned
     // SETUP
     let ran = false,
         req = { params: { id: ":aaaaaaaaaaaaaaaaaaaaaaaa"}},
@@ -159,9 +174,9 @@ describe('noteView', function() {
     });
 
     it('should return an array', function() {
-      let doc_01 = { _id: 1000, created_date: new Date(2017-12-01), note_text: 'test 1000' },
-          doc_02 = { _id: 1001, created_date: new Date(2017-12-02), note_text: 'test 1001' },
-          doc_03 = { _id: 1002, created_date: new Date(2017-12-03), note_text: 'test 1002' };
+      let doc_01 = { _id: 1000, created_date: new Date(2017-12-01), modified_date: new Date(2017-12-01), note_text: 'test 1000' },
+          doc_02 = { _id: 1001, created_date: new Date(2017-12-02), modified_date: new Date(2017-12-02), note_text: 'test 1001' },
+          doc_03 = { _id: 1002, created_date: new Date(2017-12-03), modified_date: new Date(2017-12-03), note_text: 'test 1002' };
       let docs = [doc_01, doc_02, doc_03];
 
       let test_result = noteView.viewNotes(docs);
@@ -170,20 +185,11 @@ describe('noteView', function() {
       // assert.equal(test_result.length, 3);
     });
 
-    it('should return an array even if not passed an array', function() {
-      let doc_01 = { _id: 1000, created_date: new Date(2017-12-01), note_text: 'test 1000' };
-
-      console.log(doc_01);
-      let test_result = noteView.viewNotes(doc_01);
-
-      assert.ok(test_result[0]);
-    });
-
-    it('should return an array that contains date fields', function() {
+    it('should return an array that contains created_date fields', function() {
       let test_date = new Date(2017-12-01);
-      let doc_01 = { _id: 1000, created_date: new Date(2017-12-01), note_text: 'test 1000' },
-          doc_02 = { _id: 1001, created_date: new Date(2017-12-02), note_text: 'test 1001' },
-          doc_03 = { _id: 1002, created_date: new Date(2017-12-03), note_text: 'test 1002' };
+      let doc_01 = { _id: 1000, created_date: new Date(2017-12-01), modified_date: new Date(2017-12-01), note_text: 'test 1000' },
+          doc_02 = { _id: 1001, created_date: new Date(2017-12-02), modified_date: new Date(2017-12-02), note_text: 'test 1001' },
+          doc_03 = { _id: 1002, created_date: new Date(2017-12-03), modified_date: new Date(2017-12-03), note_text: 'test 1002' };
       let docs = [doc_01, doc_02, doc_03];
 
       let test_result = noteView.viewNotes(docs);
@@ -191,11 +197,23 @@ describe('noteView', function() {
       assert.deepEqual(test_result[0].created_date, test_date);
     });
 
-    it('should return an array with note text fields', function() {
+    it('should return an array that contains modified_date fields', function() {
+      let test_date = new Date(2017-12-01);
+      let doc_01 = { _id: 1000, created_date: new Date(2017-12-01), modified_date: new Date(2017-12-01), note_text: 'test 1000' },
+          doc_02 = { _id: 1001, created_date: new Date(2017-12-02), modified_date: new Date(2017-12-02), note_text: 'test 1001' },
+          doc_03 = { _id: 1002, created_date: new Date(2017-12-03), modified_date: new Date(2017-12-03), note_text: 'test 1002' };
+      let docs = [doc_01, doc_02, doc_03];
+
+      let test_result = noteView.viewNotes(docs);
+
+      assert.deepEqual(test_result[0].modified_date, test_date);
+    });
+
+    it('should return an array with note_text fields', function() {
       let test_text = "How now brown cow?"
-      let doc_01 = { _id: 1000, created_date: new Date(2017-12-01), note_text: test_text },
-          doc_02 = { _id: 1001, created_date: new Date(2017-12-02), note_text: 'test 1001' },
-          doc_03 = { _id: 1002, created_date: new Date(2017-12-03), note_text: 'test 1002' };
+      let doc_01 = { _id: 1000, created_date: new Date(2017-12-01), modified_date: new Date(2017-12-01), note_text: test_text },
+          doc_02 = { _id: 1001, created_date: new Date(2017-12-02), modified_date: new Date(2017-12-02), note_text: 'test 1001' },
+          doc_03 = { _id: 1002, created_date: new Date(2017-12-03), modified_date: new Date(2017-12-03), note_text: 'test 1002' };
       let docs = [doc_01, doc_02, doc_03];
 
       let test_result = noteView.viewNotes(docs);
