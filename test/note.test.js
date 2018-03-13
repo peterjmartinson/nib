@@ -104,7 +104,15 @@ describe('noteCtrl', function() {
     });
 
     it('should pass an array with "created_date" to a callback', function() {
-      assert.ok(false);
+      let has_dates = true;
+      noteCtrl.getAllNotes(req, res, db, function(argument) {
+        for (let i = 0; i < argument.length; i++) {
+          if (!argument[i].created_date) {
+            has_dates = false;
+          }
+        }
+        assert.ok(has_dates);
+      });
     });
 
     it('should pass an array with "title" to a callback', function() {
