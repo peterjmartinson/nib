@@ -173,6 +173,19 @@ describe('noteCtrl', function() {
       });
     });
 
+    it('should pass a nice looking created_date to a callback', function() {
+      noteCtrl.getAllNotes(req, res, db, function(argument) {
+        let expected_date = "December 1, 2017";
+
+        assert.equal(argument[0].created_date, expected_date);
+        
+      });
+    });
+
+    it('should pass a nice looking modified_date to a callback', function() {
+      assert.ok(false);
+    });
+
 
   });
 

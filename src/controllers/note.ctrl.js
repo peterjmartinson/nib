@@ -20,32 +20,62 @@
     cursor.toArray(function(err, docs) {
       assert.equal(null, err);
 
+      let output_docs = [];
+      // now, read each object into this doc.  You're modifying the original array!!!
+
       for(let i = 0; i < docs.length; i++) {
-        if ( !docs[i]._id ) {
-          docs[i]._id = "missing";
-        }
 
-        if ( !docs[i].created_date ) {
-          docs[i].created_date = new Date(0);
-        }
+        let temp_object = {_id:"", created_date:"", modified_date:"", note_text:"", title:""};
 
-        if ( !docs[i].modified_date ) {
-          docs[i].modified_date = docs[i].created_date;
-        }
+        temp_object._id = !!docs[i]._id ? docs[i]._id : "missing";
+          console.log("original (" + i + "): " + docs[i].created_date);
+        temp_object.created_date = !!docs[i].created_date ? docs[i].created_date : new Date(0);
+          console.log("after (" + i + "): " + temp_object.created_date);
+        temp_object.modified_date = !!docs[i].modified_date ? docs[i].modified_date : docs[i].created_date;
+        temp_object.note_text = !!docs[i].note_text ? docs[i].note_text : "missing";
+        temp_object.title = !!docs[i].title ? docs[i].title : temp_object.note_text.substring(0, 30);
+        temp_object.created_date = parseDate(temp_object.created_date);
 
-        if ( !docs[i].note_text ) {
-          docs[i].note_text = "missing";
-        }
+        output_docs.push(temp_object);
+        // if ( !docs[i]._id ) {
+        //   docs[i]._id = "missing";
+        // }
 
-        // Make a better title-parser!!
-        if ( !docs[i].title ) {
-          docs[i].title = docs[i].note_text.substring(0, 30);
-        }
+        // if ( !docs[i].created_date ) {
+        //   console.log("before (" + i + "): " + docs[i].created_date);
+        //   docs[i].created_date = new Date(0);
+        //   console.log("after (" + i + "): " + docs[i].created_date);
+        // }
+
+        // if ( !docs[i].modified_date ) {
+        //   docs[i].modified_date = docs[i].created_date;
+        // }
+
+        // if ( !docs[i].note_text ) {
+        //   docs[i].note_text = "missing";
+        // }
+
+        // // Make a better title-parser!!
+        // if ( !docs[i].title ) {
+        //   docs[i].title = docs[i].note_text.substring(0, 30);
+        // }
+
+        // docs[i].created_date = parseDate(docs[i].created_date);
 
       }
 
-      callback(docs);
+      callback(output_docs);
     });
+  }
+
+  function parseDate(date) {
+    let created_date = new Date(date),
+        months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+        display_date = "";
+    display_date += months[created_date.getMonth()];
+    display_date += " " + created_date.getDate();
+    display_date += ", " + created_date.getFullYear();
+    return display_date;
   }
 
   /*
