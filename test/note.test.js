@@ -63,13 +63,23 @@ describe('noteCtrl', function() {
         req = {},
         res = {},
         db = {},
-        doc_01 = { _id: 1000, created_date: new Date(2017-12-01), modified_date: new Date(2017-12-01), note_text: 'test 1000' },
-        doc_02 = { _id: 1001, created_date: new Date(2017-12-02), modified_date: new Date(2017-12-02), note_text: 'test 1001' },
-        doc_03 = { _id: 1002, created_date: new Date(2017-12-03), modified_date: new Date(2017-12-03), note_text: 'test 1002' };
+
+        id = [1000, 1002, 1003],
+        title = ["Note 1", "Note 2", "Note 3"],
+        note_text = ["Hey diddle diddle, the cat and the fiddle", "Little Miss Muffet sat on her tuffet", "Humpty Dumpty sat on a wall"],
+        created_date = [new Date(2017-12-01), new Date(2017-12-02), new Date(2017-12-03)],
+        modified_date = [new Date(2018-12-01), new Date(2018-12-02), new Date(2018-12-03)],
+
+        doc_00 = { _id: id[0], created_date: created_date[0], modified_date: modified_date[0], note_text: note_text[0], title: title[0] },
+        doc_01 = { created_date: created_date[1], modified_date: modified_date[1], note_text: note_text[1], title: title[1] },
+        doc_02 = { _id: id[2], modified_date: modified_date[2], note_text: note_text[2], title: title[2] },
+        doc_03 = { _id: id[3], created_date: created_date[3], note_text: note_text[3], title: title[3] },
+        doc_04 = { _id: id[4], created_date: created_date[4], modified_date: modified_date[4], title: title[4] },
+        doc_05 = { _id: id[5], created_date: created_date[5], modified_date: modified_date[5], note_text: note_text[5] };
 
     function toArray(callback) {
       let err = null,
-          docs = [doc_01, doc_02, doc_03];
+          docs = [doc_00, doc_01, doc_02, doc_03, doc_04, doc_05];
       ran = true;
       callback(null, docs);
     }
@@ -103,6 +113,18 @@ describe('noteCtrl', function() {
       });
     });
 
+    it('should pass an array with "_id" to a callback', function() {
+      let has_ids = true;
+      noteCtrl.getAllNotes(req, res, db, function(argument) {
+        for (let i = 0; i < argument.length; i++) {
+          if (!argument[i]._id) {
+            has_ids = false;
+          }
+        }
+        assert.ok(has_ids);
+      });
+    });
+
     it('should pass an array with "created_date" to a callback', function() {
       let has_dates = true;
       noteCtrl.getAllNotes(req, res, db, function(argument) {
@@ -116,15 +138,39 @@ describe('noteCtrl', function() {
     });
 
     it('should pass an array with "title" to a callback', function() {
-      assert.ok(false);
+      let has_titles = true;
+      noteCtrl.getAllNotes(req, res, db, function(argument) {
+        for (let i = 0; i < argument.length; i++) {
+          if (!argument[i].title) {
+            has_titles = false;
+          }
+        }
+        assert.ok(has_titles);
+      });
     });
 
     it('should pass an array with "modified_date" to a callback', function() {
-      assert.ok(false);
+      let has_modified_dates = true;
+      noteCtrl.getAllNotes(req, res, db, function(argument) {
+        for (let i = 0; i < argument.length; i++) {
+          if (!argument[i].modified_date) {
+            has_modified_dates = false;
+          }
+        }
+        assert.ok(has_modified_dates);
+      });
     });
 
     it('should pass an array with "note_text" to a callback', function() {
-      assert.ok(false);
+      let has_note_texts = true;
+      noteCtrl.getAllNotes(req, res, db, function(argument) {
+        for (let i = 0; i < argument.length; i++) {
+          if (!argument[i].note_text) {
+            has_note_texts = false;
+          }
+        }
+        assert.ok(has_note_texts);
+      });
     });
 
 

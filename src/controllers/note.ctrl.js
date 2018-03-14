@@ -19,6 +19,31 @@
     let cursor = db.collection("notes").find();
     cursor.toArray(function(err, docs) {
       assert.equal(null, err);
+
+      for(let i = 0; i < docs.length; i++) {
+        if ( !docs[i]._id ) {
+          docs[i]._id = "missing";
+        }
+
+        if ( !docs[i].created_date ) {
+          docs[i].created_date = new Date(0);
+        }
+
+        if ( !docs[i].modified_date ) {
+          docs[i].modified_date = docs[i].created_date;
+        }
+
+        if ( !docs[i].note_text ) {
+          docs[i].note_text = "missing";
+        }
+
+        // Make a better title-parser!!
+        if ( !docs[i].title ) {
+          docs[i].title = docs[i].note_text.substring(0, 30);
+        }
+
+      }
+
       callback(docs);
     });
   }
