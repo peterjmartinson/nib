@@ -27,40 +27,15 @@
 
         let temp_object = {_id:"", created_date:"", modified_date:"", note_text:"", title:""};
 
-        temp_object._id = !!docs[i]._id ? docs[i]._id : "missing";
-          console.log("original (" + i + "): " + docs[i].created_date);
-        temp_object.created_date = !!docs[i].created_date ? docs[i].created_date : new Date(0);
-          console.log("after (" + i + "): " + temp_object.created_date);
-        temp_object.modified_date = !!docs[i].modified_date ? docs[i].modified_date : docs[i].created_date;
-        temp_object.note_text = !!docs[i].note_text ? docs[i].note_text : "missing";
-        temp_object.title = !!docs[i].title ? docs[i].title : temp_object.note_text.substring(0, 30);
-        temp_object.created_date = parseDate(temp_object.created_date);
+        temp_object._id           = !!docs[i]._id           ? docs[i]._id           : "missing";
+        temp_object.created_date  = !!docs[i].created_date  ? docs[i].created_date  : new Date(0);
+        temp_object.modified_date = !!docs[i].modified_date ? docs[i].modified_date : temp_object.created_date;
+        temp_object.note_text     = !!docs[i].note_text     ? docs[i].note_text     : "missing";
+        temp_object.title         = !!docs[i].title         ? docs[i].title         : temp_object.note_text.substring(0, 30);
+        temp_object.created_date  = parseDate(temp_object.created_date);
+        temp_object.modified_date  = parseDate(temp_object.modified_date);
 
         output_docs.push(temp_object);
-        // if ( !docs[i]._id ) {
-        //   docs[i]._id = "missing";
-        // }
-
-        // if ( !docs[i].created_date ) {
-        //   console.log("before (" + i + "): " + docs[i].created_date);
-        //   docs[i].created_date = new Date(0);
-        //   console.log("after (" + i + "): " + docs[i].created_date);
-        // }
-
-        // if ( !docs[i].modified_date ) {
-        //   docs[i].modified_date = docs[i].created_date;
-        // }
-
-        // if ( !docs[i].note_text ) {
-        //   docs[i].note_text = "missing";
-        // }
-
-        // // Make a better title-parser!!
-        // if ( !docs[i].title ) {
-        //   docs[i].title = docs[i].note_text.substring(0, 30);
-        // }
-
-        // docs[i].created_date = parseDate(docs[i].created_date);
 
       }
 

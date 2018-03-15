@@ -67,21 +67,21 @@ describe('noteCtrl', function() {
         id = [1000, 1002, 1003],
         title = ["Note 1", "Note 2", "Note 3"],
         note_text = ["Hey diddle diddle, the cat and the fiddle", "Little Miss Muffet sat on her tuffet", "Humpty Dumpty sat on a wall"],
-        created_date = [new Date(2017-12-01), new Date(2017-12-02), new Date(2017-12-03)],
-        modified_date = [new Date(2018-12-01), new Date(2018-12-02), new Date(2018-12-03)],
+        created_date = [ new Date("12-01-2017"), new Date("12-02-2017"), new Date("12-03-2017"), new Date("12-04-2017"), new Date("12-05-2017"), new Date("12-06-2017") ],
+        modified_date = [ new Date("12-01-2018"), new Date("12-02-2018"), new Date("12-03-2018"), new Date("12-04-2018"), new Date("12-05-2018"), new Date("12-06-2018") ],
 
-        doc_00 = { _id: id[0], created_date: created_date[0], modified_date: modified_date[0], note_text: note_text[0], title: title[0] },
-        doc_01 = { created_date: created_date[1], modified_date: modified_date[1], note_text: note_text[1], title: title[1] },
-        doc_02 = { _id: id[2], modified_date: modified_date[2], note_text: note_text[2], title: title[2] },
-        doc_03 = { _id: id[3], created_date: created_date[3], note_text: note_text[3], title: title[3] },
-        doc_04 = { _id: id[4], created_date: created_date[4], modified_date: modified_date[4], title: title[4] },
-        doc_05 = { _id: id[5], created_date: created_date[5], modified_date: modified_date[5], note_text: note_text[5] };
+        test_docs = [];
+        test_docs.push({ _id: id[0], created_date: created_date[0], modified_date: modified_date[0], note_text: note_text[0], title: title[0] });
+        test_docs.push({ created_date: created_date[1], modified_date: modified_date[1], note_text: note_text[1], title: title[1] });
+        test_docs.push({ _id: id[2], modified_date: modified_date[2], note_text: note_text[2], title: title[2] });
+        test_docs.push({ _id: id[3], created_date: created_date[3], note_text: note_text[3], title: title[3] });
+        test_docs.push({ _id: id[4], created_date: created_date[4], modified_date: modified_date[4], title: title[4] });
+        test_docs.push({ _id: id[5], created_date: created_date[5], modified_date: modified_date[5], note_text: note_text[5] });
 
     function toArray(callback) {
-      let err = null,
-          docs = [doc_00, doc_01, doc_02, doc_03, doc_04, doc_05];
+      let err = null;
       ran = true;
-      callback(null, docs);
+      callback(null, test_docs);
     }
 
     function find() {
@@ -183,7 +183,12 @@ describe('noteCtrl', function() {
     });
 
     it('should pass a nice looking modified_date to a callback', function() {
-      assert.ok(false);
+      noteCtrl.getAllNotes(req, res, db, function(argument) {
+        let expected_date = "December 1, 2018";
+
+        assert.equal(argument[0].modified_date, expected_date);
+        
+      });
     });
 
 
