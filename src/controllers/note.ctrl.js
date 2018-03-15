@@ -21,29 +21,27 @@
       assert.equal(null, err);
 
       let output_docs = [];
-      // now, read each object into this doc.  You're modifying the original array!!!
 
       for(let i = 0; i < docs.length; i++) {
-
-        let temp_object = {_id:"", created_date:"", modified_date:"", note_text:"", title:""};
-
-        temp_object._id           = !!docs[i]._id           ? docs[i]._id           : "missing";
-        temp_object.created_date  = !!docs[i].created_date  ? docs[i].created_date  : new Date(0);
-        temp_object.modified_date = !!docs[i].modified_date ? docs[i].modified_date : temp_object.created_date;
-        temp_object.note_text     = !!docs[i].note_text     ? docs[i].note_text     : "missing";
-        temp_object.title         = !!docs[i].title         ? docs[i].title         : temp_object.note_text.substring(0, 30);
-        temp_object.created_date  = parseDate(temp_object.created_date);
-        temp_object.modified_date  = parseDate(temp_object.modified_date);
-
-        output_docs.push(temp_object);
-
+        output_docs.push(formatForList(docs[i]));
       }
 
       callback(output_docs);
     });
   }
 
+  function formatForList(doc) {
+    let _id           = !!doc._id           ? doc._id                      : "missing",
+        created_date  = !!doc.created_date  ? parseDate(doc.created_date)  : parseDate(new Date(0)),
+        modified_date = !!doc.modified_date ? parseDate(doc.modified_date) : created_date,
+        note_text     = !!doc.note_text     ? doc.note_text                : "missing",
+        title         = !!doc.title         ? doc.title                    : note_text.substring(0, 30);
+    return { _id: _id, created_date: created_date, modified_date: modified_date, note_text: note_text, title: title };
+  }
+
+
   function parseDate(date) {
+    if (!date) return 0;
     let created_date = new Date(date),
         months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
         display_date = "";
