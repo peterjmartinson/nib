@@ -4,6 +4,18 @@
   const assert = require('assert');
   const ObjectID = require('mongodb').ObjectID;
 
+  /*
+   * For updating:
+   * 1. req needs to pass {_id, created_date, modified_date, note_text}
+   * 2. Logic needs to exist *before* passing `req` to deal with if a note doesn't exist
+   *  when should the _id be created?  Right now it gets created by the DB on
+   *  insert but maybe it would be better that it get created by the app here.
+   *  Or, add a separate id (note_id).  Then the only place _id gets used is
+   *  internally by the DB.  All the identifiers in the app would be note_id...
+   *  -> Opt for the app-created ID, not the DB created ID
+   *  of course, this means changing a *bunch* of code, and recreating the
+   *  whole DB, since each item needs to have a note_id.
+  */
   function postNote(req, res, db, callback) {
     let new_document = {
       created_date : new Date(),
@@ -12,6 +24,7 @@
     }
 
     db.collection("notes").insertOne(new_document);
+    // db.collection("notes").update({_id: note_id}, 
 
   }
 

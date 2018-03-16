@@ -29,7 +29,7 @@ describe('noteCtrl', function() {
       return ops;
     }
 
-    function save(ops) {
+    function update(ops) {
       test_date = ops.created_date;
       test_data = ops.note_text;
       ran = true;
@@ -39,7 +39,7 @@ describe('noteCtrl', function() {
     db.collection = function(name) {
       return {
         insertOne: insertOne,
-        save: save
+        update: update
       }
     }
 
