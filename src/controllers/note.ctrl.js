@@ -42,9 +42,17 @@
 
   function parseDate(date) {
     if (!date) return 0;
-    let created_date = new Date(date),
+    // let created_date = new Date(date),
+    let created_date = "",
         months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
         display_date = "";
+
+    if (date instanceof Date) {
+      created_date = new Date(date);
+    }
+    else {
+      created_date = new Date(0);
+    }
     display_date += months[created_date.getMonth()];
     display_date += " " + created_date.getDate();
     display_date += ", " + created_date.getFullYear();

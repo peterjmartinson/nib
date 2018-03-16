@@ -67,8 +67,8 @@ describe('noteCtrl', function() {
         id = [1000, 1002, 1003],
         title = ["Note 1", "Note 2", "Note 3"],
         note_text = ["Hey diddle diddle, the cat and the fiddle", "Little Miss Muffet sat on her tuffet", "Humpty Dumpty sat on a wall"],
-        created_date = [ new Date("12-01-2017"), new Date("12-02-2017"), new Date("12-03-2017"), new Date("12-04-2017"), new Date("12-05-2017"), new Date("12-06-2017") ],
-        modified_date = [ new Date("12-01-2018"), new Date("12-02-2018"), new Date("12-03-2018"), new Date("12-04-2018"), new Date("12-05-2018"), new Date("12-06-2018") ],
+        created_date = [ new Date("12-01-2017"), new Date("12-02-2017"), new Date("12-03-2017"), new Date("12-04-2017"), new Date("12-05-2017"), new Date("12-06-2017"), "not a date" ],
+        modified_date = [ new Date("12-01-2018"), new Date("12-02-2018"), new Date("12-03-2018"), new Date("12-04-2018"), new Date("12-05-2018"), new Date("12-06-2018"), "not a date" ],
 
         test_docs = [];
         test_docs.push({ _id: id[0], created_date: created_date[0], modified_date: modified_date[0], note_text: note_text[0], title: title[0] });
@@ -77,6 +77,7 @@ describe('noteCtrl', function() {
         test_docs.push({ _id: id[3], created_date: created_date[3], note_text: note_text[3], title: title[3] });
         test_docs.push({ _id: id[4], created_date: created_date[4], modified_date: modified_date[4], title: title[4] });
         test_docs.push({ _id: id[5], created_date: created_date[5], modified_date: modified_date[5], note_text: note_text[5] });
+        test_docs.push({ _id: id[6], created_date: created_date[6], modified_date: modified_date[6], note_text: note_text[6], title: title[6] });
 
     function toArray(callback) {
       let err = null;
@@ -172,6 +173,23 @@ describe('noteCtrl', function() {
         assert.ok(has_note_texts);
       });
     });
+
+    it('should check if created_date is a date, and replace it if not', function() {
+      noteCtrl.getAllNotes(req, res, db, function(argument) {
+        let expected_date = "December 31, 1969";
+
+        assert.equal(argument[6].created_date, expected_date);
+      });
+    });
+
+    it('should check if modified_date is a date, and replace it if not', function() {
+      noteCtrl.getAllNotes(req, res, db, function(argument) {
+        let expected_date = "December 31, 1969";
+
+        assert.equal(argument[6].modified_date, expected_date);
+      });
+    });
+
 
     it('should pass a nice looking created_date to a callback', function() {
       noteCtrl.getAllNotes(req, res, db, function(argument) {
