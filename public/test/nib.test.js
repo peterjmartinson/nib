@@ -27,35 +27,45 @@ describe("$post", function() {
   });
 
   it("should take a callback", function() {
-    let arg1 = 1,
-        arg2 = 2,
+    let route = 1,
+        parcel = 2,
         callback = sinon.spy();
 
-    window.handler.$post(arg1, arg2, callback);
+    window.handler.$post(route, parcel, callback);
 
     assert.ok(callback.called);
   });
 
-  it("should create a new XMLHttpRequest", function() {
-    let arg1 = 1,
-        arg2 = 2,
-        callback = sinon.spy();
+  it("creates a POST request", function() {
+    let route = 1,
+        parcel = 2,
+        callback = sinon.spy(),
+        expected_method = "POST";
 
-    window.handler.$post(arg1, arg2, callback);
-    console.log(JSON.stringify(xhr));
-    console.log(requests[0].method);
+    window.handler.$post(route, parcel, callback);
 
-    assert.ok(false);
+    assert.equal(requests[0].method, expected_method);
   });
 
-  it("creates a POST request", function() {
-    let arg1 = 1,
-        arg2 = 2,
+  it("should set the correct header", function() {
+    let route = 1,
+        parcel = 2,
+        callback = sinon.spy(),
+        expected_header = "application/json";
+
+    window.handler.$post(route, parcel, callback);
+
+    assert.equal(requests[0].requestHeaders["Content-Type"].substring(0,16), expected_header);
+  });
+
+  it("should send the POST request", function() {
+    let route = 1,
+        parcel = 2,
         callback = sinon.spy();
 
-    window.handler.$post(arg1, arg2, callback);
+    window.handler.$post(route, parcel, callback);
 
-    assert.equal(requests[0].method, "POST");
+    assert(requests[0].sendFlag);
   });
 
 });

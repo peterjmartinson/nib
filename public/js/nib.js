@@ -2,13 +2,27 @@ let Handler = function() {
 
   function $post(route, parcel, callback) {
     let DONE = 4, OK = 200,
-        request = new XMLHttpRequest();
-    request.open('POST', route);
+        request = new XMLHttpRequest(),
+        response = "";
     if (!request) {
       console.log('Unable to create request.  Giving up.');
-      return false;
+      return false; // replace with callback
     }
-    callback();
+    request.open('POST', route);
+    request.setRequestHeader('Content-Type', 'application/json');
+    request.send(parcel);
+    request.onreadystatechange = function() {
+      if (request.readyState === DONE) {
+        if (request.status === OK) {
+          response = request.responseText;
+        }
+        else {
+          response = "POST Error: " + request.status;
+          console.log('POST Error: ' + request.status);
+        }
+      }
+    }
+    callback(response);
   }
 
   // window.$post = function (route, parcel, callback) {
