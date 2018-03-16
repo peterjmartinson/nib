@@ -8,6 +8,58 @@ describe("The canary", function() {
   });
 });
 
+describe("$post", function() {
+  it("should exist", function() {
+    assert.equal(typeof window.handler.$post, "function");
+  });
+
+  // ------------------------------- SET UP
+  let xhr, requests;
+
+  beforeEach(function () {
+    xhr = sinon.useFakeXMLHttpRequest();
+    requests = [];
+    xhr.onCreate = function (req) { requests.push(req); };
+  });
+
+  afterEach(function () {
+    xhr.restore();
+  });
+
+  it("should take a callback", function() {
+    let arg1 = 1,
+        arg2 = 2,
+        callback = sinon.spy();
+
+    window.handler.$post(arg1, arg2, callback);
+
+    assert.ok(callback.called);
+  });
+
+  it("should create a new XMLHttpRequest", function() {
+    let arg1 = 1,
+        arg2 = 2,
+        callback = sinon.spy();
+
+    window.handler.$post(arg1, arg2, callback);
+    console.log(JSON.stringify(xhr));
+    console.log(requests[0].method);
+
+    assert.ok(false);
+  });
+
+  it("creates a POST request", function() {
+    let arg1 = 1,
+        arg2 = 2,
+        callback = sinon.spy();
+
+    window.handler.$post(arg1, arg2, callback);
+
+    assert.equal(requests[0].method, "POST");
+  });
+
+});
+
 describe("$get", function() {
   it("should exist", function() {
     assert.equal(typeof window.handler.$get, "function");

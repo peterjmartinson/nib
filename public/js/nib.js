@@ -1,5 +1,39 @@
 let Handler = function() {
 
+  function $post(route, parcel, callback) {
+    let DONE = 4, OK = 200,
+        request = new XMLHttpRequest();
+    request.open('POST', route);
+    if (!request) {
+      console.log('Unable to create request.  Giving up.');
+      return false;
+    }
+    callback();
+  }
+
+  // window.$post = function (route, parcel, callback) {
+  //   let DONE = 4, OK = 200,
+  //       request = new XMLHttpRequest();
+  //   if (!request) {
+  //     console.log('Unable to create request.  Giving up.');
+  //     return false;
+  //   }
+  //   request.open('POST', route);
+  //   request.setRequestHeader('Content-Type', 'application/json');
+  //   request.send(parcel);
+  //   request.onreadystatechange = function() {
+  //     if (request.readyState === DONE) {
+  //       if (request.status === OK) {
+  //         let response = request.responseText;
+  //         callback(response);
+  //       }
+  //       else {
+  //         console.log('POST Error: ' + request.status);
+  //       }
+  //     }
+  //   }
+  // };
+
   function $get(route, callback) {
     let DONE = 4, OK = 200,
         request = new XMLHttpRequest();
@@ -63,7 +97,8 @@ let Handler = function() {
 
   return {
     getNote: getNote,
-    $get: $get
+    $get: $get,
+    $post: $post
   };
 };
 
