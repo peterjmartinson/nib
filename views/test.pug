@@ -1,0 +1,14 @@
+html
+  head
+    title= title
+  body
+
+    ul.button-list
+      each id in id_list
+        button(id=id onclick="key.sendKeyPress(id)")
+          <span>send #{id}</span>
+        
+    div#cowport
+    script(src="./js/test.js")
+
+

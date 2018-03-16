@@ -1,27 +1,37 @@
 {
   "name": "nib",
   "version": "1.0.0",
-  "description": "A simple notetaking app",
+  "description": "Basic note taking application",
   "main": "server.js",
-  "directories": {
-    "test": "test"
-  },
   "scripts": {
-    "test": "test",
-    "start": "node server.js"
+    "test": "istanbul cover node_modules/mocha/bin/_mocha"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/peterjmartinson/nib.git"
   },
-  "author": "",
+  "author": "Peter Martinson",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/peterjmartinson/nib/issues"
   },
   "homepage": "https://github.com/peterjmartinson/nib#readme",
+  "devDependencies": {
+    "body-parser": "^1.17.2",
+    "chai": "^4.1.1",
+    "eslint": "^4.17.0",
+    "express": "^4.15.4",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.5.0",
+    "mongodb": "^2.2.31",
+    "pug": "^2.0.0-rc.3",
+    "sinon": "^3.2.1"
+  },
   "dependencies": {
     "body-parser": "^1.17.2",
-    "express": "^4.15.4"
+    "express": "^4.15.4",
+    "less": "^2.7.2",
+    "mongodb": "^2.2.33",
+    "pug": "^2.0.0-rc.3"
   }
 }
