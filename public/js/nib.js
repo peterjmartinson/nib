@@ -26,7 +26,15 @@ let Handler = function() {
     }
   }
 
+  var save_note_button = document.getElementById("save-note");
+  save_note_button.addEventListener("click", postNote, false);
+
   function postNote() {
+    let note_text = document.getElementById("note").value;
+    let created_date = new Date();
+    let modified_date = created_date;
+    let note_id = Date.parse(created_date);
+    // check thiS!!!
   }
 
   function $get(route, callback) {
