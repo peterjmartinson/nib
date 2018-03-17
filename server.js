@@ -3,8 +3,8 @@
 
   const express    = require("express"),
         app        = express(),
-        port       = process.env.PORT || 3001,
-        noteCtrl   = require("./controllers/note.ctrl"),
+        port       = process.env.PORT || 3000,
+        noteCtrl   = require("./src/controllers/note.ctrl"),
         MongoClient = require("mongodb").MongoClient,
         assert = require("assert"),
         bodyParser = require("body-parser"),
