@@ -26,6 +26,9 @@ let Handler = function() {
     }
   }
 
+  function postNote() {
+  }
+
   function $get(route, callback) {
     let DONE = 4, OK = 200,
         request = new XMLHttpRequest(),
@@ -91,6 +94,7 @@ let Handler = function() {
 
   return {
     getNote: getNote,
+    postNote: postNote,
     $get: $get,
     $post: $post
   };

@@ -73,7 +73,35 @@ describe("$post", function() {
 });
 
 
+describe("postNote()", function() {
 
+  // XMLHttpRequest setup
+  let xhr, requests;
+
+  beforeEach(function () {
+    xhr = sinon.useFakeXMLHttpRequest();
+    requests = [];
+    xhr.onCreate = function (req) { requests.push(req); };
+  });
+
+  afterEach(function () {
+    xhr.restore();
+  });
+
+  it("should exist", function() {
+    assert.equal(typeof window.handler.postNote, "function");
+  });
+
+  it("should call the correct route", function() {
+    let test_id = "1000";
+    let expected_route = "/"
+
+    window.handler.postNote(test_id);
+
+    assert.equal(requests[0].url, expected_route);
+  });
+
+});
 
 
 
