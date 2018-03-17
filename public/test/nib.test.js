@@ -26,20 +26,10 @@ describe("$post", function() {
     xhr.restore();
   });
 
-  it("should take a callback", function() {
-    let route = 1,
-        parcel = 2,
-        callback = sinon.spy();
-
-    window.handler.$post(route, parcel, callback);
-
-    assert.ok(callback.called);
-  });
-
   it("creates a POST request", function() {
     let route = 1,
         parcel = 2,
-        callback = sinon.spy(),
+        callback = function() {},
         expected_method = "POST";
 
     window.handler.$post(route, parcel, callback);
@@ -50,7 +40,7 @@ describe("$post", function() {
   it("should set the correct header", function() {
     let route = 1,
         parcel = 2,
-        callback = sinon.spy(),
+        callback = function() {},
         expected_header = "application/json";
 
     window.handler.$post(route, parcel, callback);
@@ -61,14 +51,32 @@ describe("$post", function() {
   it("should send the POST request", function() {
     let route = 1,
         parcel = 2,
-        callback = sinon.spy();
+        callback = function() {};
 
     window.handler.$post(route, parcel, callback);
 
     assert(requests[0].sendFlag);
   });
 
+  it("should take a callback", function() {
+    let route = 1,
+        parcel = 2,
+        callback = sinon.spy();
+
+    window.handler.$post(route, parcel, callback);
+    requests[0].respond();
+
+    console.log(callback.args[0]);
+    assert.ok(callback.called);
+  });
+
 });
+
+
+
+
+
+
 
 describe("$get", function() {
   it("should exist", function() {

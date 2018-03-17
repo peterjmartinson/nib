@@ -3,7 +3,8 @@ let Handler = function() {
   function $post(route, parcel, callback) {
     let DONE = 4, OK = 200,
         request = new XMLHttpRequest(),
-        response = "";
+        error = null,
+        response = null;
     if (!request) {
       console.log('Unable to create request.  Giving up.');
       return false; // replace with callback
@@ -17,40 +18,19 @@ let Handler = function() {
           response = request.responseText;
         }
         else {
-          response = "POST Error: " + request.status;
-          console.log('POST Error: ' + request.status);
+          error = "POST Error: " + request.status;
+          console.log(error);
         }
+      callback(error, response);
       }
     }
-    callback(response);
   }
-
-  // window.$post = function (route, parcel, callback) {
-  //   let DONE = 4, OK = 200,
-  //       request = new XMLHttpRequest();
-  //   if (!request) {
-  //     console.log('Unable to create request.  Giving up.');
-  //     return false;
-  //   }
-  //   request.open('POST', route);
-  //   request.setRequestHeader('Content-Type', 'application/json');
-  //   request.send(parcel);
-  //   request.onreadystatechange = function() {
-  //     if (request.readyState === DONE) {
-  //       if (request.status === OK) {
-  //         let response = request.responseText;
-  //         callback(response);
-  //       }
-  //       else {
-  //         console.log('POST Error: ' + request.status);
-  //       }
-  //     }
-  //   }
-  // };
 
   function $get(route, callback) {
     let DONE = 4, OK = 200,
-        request = new XMLHttpRequest();
+        request = new XMLHttpRequest(),
+        error = null,
+        response = null;
     if (!request) {
       console.log("Unable to create request.  Giving up.");
       return false;
@@ -60,12 +40,12 @@ let Handler = function() {
     request.onreadystatechange = function() {
       if (request.readyState === DONE) {
         if (request.status === OK) {
-          let response = request.responseText;
-          callback(null, response);
+          response = request.responseText;
         }
         else {
-          callback(request.status);
+          error = request.status;
         }
+        callback(error, response);
       }
     };
   }
