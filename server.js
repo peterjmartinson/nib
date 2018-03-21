@@ -13,7 +13,7 @@
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(logError);
-  app.set("views", "./views");
+  app.set("views", "./src/views");
   app.set("view engine", "pug");
 
   function logError(err, req, res, next) {
@@ -56,12 +56,6 @@
 
     app.get("/test", function(req, res) {
       res.send("/test/index");
-      // let render_object = {
-      //   title: "Testing...",
-      //   id_list: [1, 2, 3, 4, 5, 6, 7]
-      // };
-      // res.render("test", render_object);
-      // res.redirect("/onclick.html");
     });
 
     // START SERVER

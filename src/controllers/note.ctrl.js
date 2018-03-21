@@ -42,7 +42,6 @@
 
   function parseDate(date) {
     if (!date) return 0;
-    // let created_date = new Date(date),
     let created_date = "",
         months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
         display_date = "";
@@ -94,14 +93,6 @@
       });
   }
     
-
-
-
-
-
-
-  
-
   module.exports = {
     postNote,
     getAllNotes,
