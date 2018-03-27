@@ -31,11 +31,17 @@
     const db = client.db("nib");
 
     // ROUTES
+
+    // Default compose view
     app.post("/", function(req, res) {
       noteCtrl.postNote(req, res, db);
+      let render_object = {
+        title: "Nib | Compose"
+      }
       res.redirect("/"); // reload index.html
     })
     
+    // The future - single page app view
     app.get("/get", function(req, res) {
       noteCtrl.getAllNotes(req, res, db, function(docs) {
         let render_object = {
