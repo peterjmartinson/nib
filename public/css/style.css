@@ -17,7 +17,7 @@ main {
   border: 1px solid red;
 }
 
-#sandbox {
+.create-note {
   width: 90%;
   height: 90%;
 }
