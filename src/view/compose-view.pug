@@ -7,20 +7,12 @@ head
     header
     main
       section(class="create-note border")
-        <form action="" method="post" target="_self">
-          <div>
-            <label for="note">Create Note</label><br>
-            <textarea id="note" name="thenote" rows="20" cols="75"></textarea>
-          </div>
-          <div>
-            <button type="submit">Save Note</button>
-          </div>
-          <!-- <iframe src="./sandbox.html" sandbox="allow-scripts" id="sandbox" class="border" frameborder="0"></iframe> -->
-        </form>
-
-      </section>
-    </main>
-
-  </body>
-</html>
-
+        form(action="" method="post" target="_self")
+          div
+            label(for="note")
+              span Create Notes
+              br
+            textarea(id="note" name="thenote" rows="20" cols="75")
+          div
+            button(type="submit")
+              span Save Note

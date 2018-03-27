@@ -33,11 +33,16 @@
     // ROUTES
 
     // Default compose view
-    app.post("/", function(req, res) {
-      noteCtrl.postNote(req, res, db);
+    app.get("/", function(req, res) {
       let render_object = {
         title: "Nib | Compose"
       }
+      res.render("compose-view", render_object);
+    })
+
+    // Default compose view
+    app.post("/", function(req, res) {
+      noteCtrl.postNote(req, res, db);
       res.redirect("/"); // reload index.html
     })
     
