@@ -2,7 +2,7 @@ let Handler = function() {
 
   function createNote() {
     let parcel = { "thenote": getEditedNoteText() };
-    $post('/', parcel, function(err, response) {
+    $post('/', JSON.stringify(parcel), function(err, response) {
       if (err) {
         console.log(err);
       }
