@@ -1,5 +1,21 @@
 let Handler = function() {
 
+  function createNote() {
+    let parcel = { "thenote": getEditedNoteText() };
+    $post('/', parcel, function(err, response) {
+      if (err) {
+        console.log(err);
+      }
+      else {
+        console.log(response);
+      }
+    });
+  }
+
+  function getEditedNoteText() {
+    return document.getElementById("edited-note").value;
+  }
+
   function $post(route, parcel, callback) {
     let DONE = 4, OK = 200,
         request = new XMLHttpRequest(),
@@ -90,7 +106,8 @@ let Handler = function() {
   return {
     $post: $post,
     getNote: getNote,
-    $get: $get
+    $get: $get,
+    createNote: createNote
   };
 };
 

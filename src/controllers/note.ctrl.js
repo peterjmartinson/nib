@@ -5,10 +5,11 @@
   const ObjectID = require('mongodb').ObjectID;
 
   function postNote(req, res, db, callback) {
+    console.log(JSON.stringify(req.body));
     let new_document = {
       created_date : new Date(),
       note_text : req.body.thenote,
-      title: req.body.thenote.substring(0, req.body.thenote.indexOf('\r\n'))
+      title: req.body.thenote.substring(0, req.body.thenote.indexOf('\r\n')) // set first line as the title
     }
 
     db.collection("notes").insertOne(new_document);

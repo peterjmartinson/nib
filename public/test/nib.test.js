@@ -8,6 +8,27 @@ describe("The canary", function() {
   });
 });
 
+describe("createNote", function() {
+  it("should exist", function() {
+    assert.equal(typeof window.handler.createNote, "function");
+  });
+
+  // ------------------------------- SET UP
+  let xhr, requests;
+
+  beforeEach(function () {
+    xhr = sinon.useFakeXMLHttpRequest();
+    requests = [];
+    xhr.onCreate = function (req) { requests.push(req); };
+  });
+
+  afterEach(function () {
+    xhr.restore();
+  });
+
+  // it("should ...
+});
+
 describe("$post", function() {
   it("should exist", function() {
     assert.equal(typeof window.handler.$post, "function");
@@ -55,6 +76,7 @@ describe("$post", function() {
 
     window.handler.$post(route, parcel, callback);
 
+    console.log(JSON.stringify(requests[0]));
     assert(requests[0].sendFlag);
   });
 
