@@ -1,5 +1,31 @@
 let Handler = function() {
 
+  function $post(route, parcel, callback) {
+    let DONE = 4, OK = 200,
+        request = new XMLHttpRequest(),
+        error = null,
+        response = null;
+    if (!request) {
+      console.log('Unable to create request.  Giving up.');
+      return false; // replace with callback
+    }
+    request.open('POST', route);
+    request.setRequestHeader('Content-Type', 'application/json');
+    request.send(parcel);
+    request.onreadystatechange = function() {
+      if (request.readyState === DONE) {
+        if (request.status === OK) {
+          response = request.responseText;
+        }
+        else {
+          error = "POST Error: " + request.status;
+          console.log(error);
+        }
+      callback(error, response);
+      }
+    }
+  }
+
   function $get(route, callback) {
     let DONE = 4, OK = 200,
         request = new XMLHttpRequest();
@@ -62,6 +88,7 @@ let Handler = function() {
   }
 
   return {
+    $post: $post,
     getNote: getNote,
     $get: $get
   };
