@@ -3,8 +3,8 @@
 
   const express    = require("express"),
         app        = express(),
-        port       = process.env.PORT || 3001,
-        noteCtrl   = require("./controllers/note.ctrl"),
+        port       = process.env.PORT || 3000,
+        noteCtrl   = require("./src/controllers/note.ctrl"),
         MongoClient = require("mongodb").MongoClient,
         assert = require("assert"),
         bodyParser = require("body-parser"),
@@ -13,7 +13,7 @@
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(logError);
-  app.set("views", "./views");
+  app.set("views", "./src/view");
   app.set("view engine", "pug");
 
   function logError(err, req, res, next) {
@@ -31,11 +31,22 @@
     const db = client.db("nib");
 
     // ROUTES
+
+    // Default compose view
+    app.get("/", function(req, res) {
+      let render_object = {
+        title: "Nib | Compose"
+      }
+      res.render("compose-view", render_object);
+    })
+
+    // Default compose view
     app.post("/", function(req, res) {
       noteCtrl.postNote(req, res, db);
       res.redirect("/"); // reload index.html
     })
     
+    // The future - single page app view
     app.get("/get", function(req, res) {
       noteCtrl.getAllNotes(req, res, db, function(docs) {
         let render_object = {
@@ -43,7 +54,7 @@
           message: "Contents of the nib database",
           docs: docs
         };
-        res.render("displayNotes", render_object);
+        res.render("standard-view", render_object);
       });
     });
 
@@ -56,12 +67,6 @@
 
     app.get("/test", function(req, res) {
       res.send("/test/index");
-      // let render_object = {
-      //   title: "Testing...",
-      //   id_list: [1, 2, 3, 4, 5, 6, 7]
-      // };
-      // res.render("test", render_object);
-      // res.redirect("/onclick.html");
     });
 
     // START SERVER
