@@ -30,6 +30,7 @@ describe("createNote", function() {
 });
 
 describe("$post", function() {
+// need to test that the @parcel is formatted correctly
   it("should exist", function() {
     assert.equal(typeof window.handler.$post, "function");
   });

@@ -1,7 +1,7 @@
 let Handler = function() {
 
   function createNote() {
-    let parcel = getEditedNoteText();
+    let parcel = "note_text=" + getEditedNoteText();
     // let parcel = { "thenote": getEditedNoteText() };
     $post('/', parcel, function(err, response) {
       if (err) {
@@ -28,7 +28,7 @@ let Handler = function() {
     }
     request.open('POST', route);
     request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
-    request.send("note_text=" + parcel);
+    request.send(parcel);
     request.onreadystatechange = function() {
       if (request.readyState === DONE) {
         if (request.status === OK) {
