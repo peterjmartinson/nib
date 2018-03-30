@@ -1,8 +1,9 @@
 let Handler = function() {
 
   function createNote() {
-    let parcel = { "thenote": getEditedNoteText() };
-    $post('/', JSON.stringify(parcel), function(err, response) {
+    let parcel = getEditedNoteText();
+    // let parcel = { "thenote": getEditedNoteText() };
+    $post('/', parcel, function(err, response) {
       if (err) {
         console.log(err);
       }
@@ -26,8 +27,8 @@ let Handler = function() {
       return false; // replace with callback
     }
     request.open('POST', route);
-    request.setRequestHeader('Content-Type', 'application/json');
-    request.send(parcel);
+    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+    request.send("thenote=" + parcel);
     request.onreadystatechange = function() {
       if (request.readyState === DONE) {
         if (request.status === OK) {

@@ -5,7 +5,7 @@
   const ObjectID = require('mongodb').ObjectID;
 
   function postNote(req, res, db, callback) {
-    console.log(JSON.stringify(req.body));
+    // console.log("from note control: " + JSON.stringify(req.body));
     let new_document = {
       created_date : new Date(),
       note_text : req.body.thenote,
