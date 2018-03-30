@@ -28,7 +28,7 @@ let Handler = function() {
     }
     request.open('POST', route);
     request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
-    request.send("thenote=" + parcel);
+    request.send("note_text=" + parcel);
     request.onreadystatechange = function() {
       if (request.readyState === DONE) {
         if (request.status === OK) {

@@ -43,7 +43,7 @@
 
     // Default compose view
     app.post("/", function(req, res) {
-      // console.log("from Express: " + JSON.stringify(req.body));
+      console.log("from Express: " + JSON.stringify(req.body));
       noteCtrl.postNote(req, res, db);
       res.redirect("/"); // reload index.html
     })
