@@ -2,7 +2,6 @@ let Handler = function() {
 
   function createNote() {
     let parcel = "note_text=" + getEditedNoteText();
-    // let parcel = { "thenote": getEditedNoteText() };
     $post('/', parcel, function(err, response) {
       if (err) {
         console.log(err);
@@ -14,7 +13,7 @@ let Handler = function() {
   }
 
   function getEditedNoteText() {
-    return document.getElementById("edited-note").value;
+    return document.getElementById("edit-note").value;
   }
 
   function $post(route, parcel, callback) {

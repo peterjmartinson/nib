@@ -26,7 +26,17 @@ describe("createNote", function() {
     xhr.restore();
   });
 
-  // it("should ...
+  it("should format the parcel correctly", function() {
+    let test_textarea = document.createElement('textarea');
+    let test_text = document.createTextNode('How now brown cow?');
+    test_textarea.appendChild(test_text);
+
+    document.getElementById("edited-note").value;
+
+    window.handler.createNote(
+
+
+  });
 });
 
 describe("$post", function() {
