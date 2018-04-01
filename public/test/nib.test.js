@@ -27,15 +27,16 @@ describe("createNote", function() {
   });
 
   it("should format the parcel correctly", function() {
-    let test_textarea = document.createElement('textarea');
-    let test_text = document.createTextNode('How now brown cow?');
-    test_textarea.appendChild(test_text);
+    let test_text  = 'How now brown cow?';
+    let expected_request_body = 'note_text=' + test_text;
+    document.getElementById("edit-note").value = test_text;
 
-    document.getElementById("edited-note").value;
+    window.handler.createNote();
+    requests[0].respond();
 
-    window.handler.createNote(
+    let request_body = requests[0].requestBody;
 
-
+    assert.equal(request_body, expected_request_body);
   });
 });
 
@@ -73,7 +74,7 @@ describe("$post", function() {
     let route = 1,
         parcel = 2,
         callback = function() {},
-        expected_header = "application/json";
+        expected_header = "application/x-ww";
 
     window.handler.$post(route, parcel, callback);
 
