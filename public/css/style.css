@@ -33,3 +33,14 @@ main {
   background-color: black;
   color: white;
 }
+
+.create-button {
+  width: 100px;
+  background-color: lightgray;
+  color: black;
+  margin: 8px;
+}
+
+.create-button {
+  cursor: pointer;
+}

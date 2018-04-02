@@ -7,12 +7,11 @@ head
     header
     main
       section(class="create-note border")
-        form(action="" method="post" target="_self")
-          div
-            label(for="note")
-              | Create Notes
-              br
-            textarea(id="note" name="thenote" rows="20" cols="75")
-          div
-            button(type="submit")
-              | Save Note
+        div
+          span
+            | Create Notes
+            br
+          textarea(id="edit-note" name="thenote" rows="20" cols="75")
+        div(class="create-button" onclick="handler.createNote()")
+          | Create Button
+    script(src="./js/nib.js")

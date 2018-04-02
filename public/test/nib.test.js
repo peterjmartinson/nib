@@ -8,6 +8,104 @@ describe("The canary", function() {
   });
 });
 
+describe("createNote", function() {
+  it("should exist", function() {
+    assert.equal(typeof window.handler.createNote, "function");
+  });
+
+  // ------------------------------- SET UP
+  let xhr, requests;
+
+  beforeEach(function () {
+    xhr = sinon.useFakeXMLHttpRequest();
+    requests = [];
+    xhr.onCreate = function (req) { requests.push(req); };
+  });
+
+  afterEach(function () {
+    xhr.restore();
+  });
+
+  it("should format the parcel correctly", function() {
+    let test_text  = 'How now brown cow?';
+    let expected_request_body = 'note_text=' + test_text;
+    document.getElementById("edit-note").value = test_text;
+
+    window.handler.createNote();
+    requests[0].respond();
+
+    let request_body = requests[0].requestBody;
+
+    assert.equal(request_body, expected_request_body);
+  });
+});
+
+describe("$post", function() {
+// need to test that the @parcel is formatted correctly
+  it("should exist", function() {
+    assert.equal(typeof window.handler.$post, "function");
+  });
+
+  // ------------------------------- SET UP
+  let xhr, requests;
+
+  beforeEach(function () {
+    xhr = sinon.useFakeXMLHttpRequest();
+    requests = [];
+    xhr.onCreate = function (req) { requests.push(req); };
+  });
+
+  afterEach(function () {
+    xhr.restore();
+  });
+
+  it("creates a POST request", function() {
+    let route = 1,
+        parcel = 2,
+        callback = function() {},
+        expected_method = "POST";
+
+    window.handler.$post(route, parcel, callback);
+
+    assert.equal(requests[0].method, expected_method);
+  });
+
+  it("should set the correct header", function() {
+    let route = 1,
+        parcel = 2,
+        callback = function() {},
+        expected_header = "application/x-ww";
+
+    window.handler.$post(route, parcel, callback);
+
+    assert.equal(requests[0].requestHeaders["Content-Type"].substring(0,16), expected_header);
+  });
+
+  it("should send the POST request", function() {
+    let route = 1,
+        parcel = 2,
+        callback = function() {};
+
+    window.handler.$post(route, parcel, callback);
+
+    console.log(JSON.stringify(requests[0]));
+    assert(requests[0].sendFlag);
+  });
+
+  it("should take a callback", function() {
+    let route = 1,
+        parcel = 2,
+        callback = sinon.spy();
+
+    window.handler.$post(route, parcel, callback);
+    requests[0].respond();
+
+    console.log(callback.args[0]);
+    assert.ok(callback.called);
+  });
+
+});
+
 describe("$get", function() {
   it("should exist", function() {
     assert.equal(typeof window.handler.$get, "function");

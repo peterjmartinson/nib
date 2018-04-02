@@ -1,3 +1,4 @@
+// Currently, this is not used anywhere
 (function() {
   'use strict';
 

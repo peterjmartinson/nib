@@ -8,9 +8,10 @@
         MongoClient = require("mongodb").MongoClient,
         assert = require("assert"),
         bodyParser = require("body-parser"),
+        jsonParser = bodyParser.json(),
         pug = require("pug");
 
-  app.use(bodyParser.json());
+  // app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(logError);
   app.set("views", "./src/view");
@@ -42,6 +43,7 @@
 
     // Default compose view
     app.post("/", function(req, res) {
+      console.log("from Express: " + JSON.stringify(req.body));
       noteCtrl.postNote(req, res, db);
       res.redirect("/"); // reload index.html
     })
