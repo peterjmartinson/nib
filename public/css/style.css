@@ -1,35 +1,83 @@
 html {
-  width: 100%;
-  height: 100%;
+  font-size: 10px;
+  height: 100vh;
 }
 
 body {
-  width: 100%;
+  font-family: sans-serif;
+  font-size: 1.5rem;
+  margin: 0px;
+  height: 100vh;
+}
+
+.container {
+  display: block;
+  height: 100vh;
+}
+
+.left {
+  display: inline-block;
+  position: absolute;
+  float: left;
+  width: 300px;
   height: 100%;
 }
 
-main {
-  width: 100%;
+#top-left {
+  background-color: lightgray;
+  height: 10%;
+  padding: 10px;
+  box-sizing: border-box;
+  border-bottom: 1px solid black;
+}
+
+#bottom-left {
+  background-color: lightgray;
+  padding: 16px;
+  overflow: scroll;
+  max-height: 90%;
+  box-sizing: border-box;
+}
+
+.right {
+  margin-left: 300px;
   height: 100%;
 }
 
-.border {
-  border: 1px solid red;
+#top-right {
+  background-color: lightgray;
+  padding: 10px;
+  height: 10%;
+  box-sizing: border-box;
+  border-left: 1px solid black;
+  border-bottom: 1px solid black;
 }
 
-.create-note {
-  width: 90%;
+#bottom-right {
+  background-color: white;
+  padding: 10px;
   height: 90%;
+  box-sizing: border-box;
+  border-left: 1px solid black;
+  display: flex;
 }
 
-#edit-note {
-  border: 1px solid black;
-  background-color: black;
-  color: white;
+textarea {
+  flex: 1;
+  border: 0px;
 }
 
-#note {
-  border: 1px solid black;
-  background-color: black;
-  color: white;
+textarea:focus {
+  outline: none;
 }
+
+.note-list {
+  list-style-type: none;
+  padding: 0px;
+  margin: 0px;
+}
+
+li {
+  margin-bottom: 10px;
+}
+
