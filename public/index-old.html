@@ -7,25 +7,12 @@
   <title>Nib | PJM</title>
 </head>
 <body>
+  <div class="container">
 
-
-    <div class="top-wrapper">
-      <div class="top-left"></div>
-      <div class="top-right">
-        <!-- <div class="splash">Title Splash</div> -->
-        <div class="title-controls">
-          <div class="controls">
-            <div class="new-note">Create Note</div>
-            <div class="save-note">Save Note</div>
-          </div>
-          <div class="other-stuff">other stuff</div>
-        </div>
+    <div class="left">
+      <div id="top-left">
       </div>
-    </div> <!-- end top-wrapper -->
-
-
-    <div class="bottom-wrapper">
-      <div class="bottom-left">
+      <div id="bottom-left">
         <ul class="note-list">
           <li id="test1" onclick="handler.getNote(id)">
             <span class="list-title">This is a note title</span>
@@ -134,12 +121,26 @@
           </li>
         </ul>
       </div>
-      <div class="bottom-right">
+    </div>
+
+    <div class="right">
+      <div id="top-right">
+        <!-- <div class="splash">Title Splash</div> -->
+        <div class="title-controls">
+          <div class="controls">
+            <div class="new-note">Create Note</div>
+            <div class="save-note">Save Note</div>
+          </div>
+          <div class="other-stuff">other stuff</div>
+        </div>
+      </div>
+      <div id="bottom-right">
         <div id="cowport"></div>
         <textarea id="edit-note" name="" cols="30" rows="10"></textarea>
       </div>
-    </div> <!-- end bottom-wrapper -->
+    </div>
 
+  </div>
   <script src="./js/nib.js"></script>
 </body>
 </html>
