@@ -8,22 +8,9 @@
 </head>
 <body>
 
-    <div class="top-wrapper">
-      <div class="top-left"></div>
-      <div class="top-right">
-        <!-- <div class="splash">Title Splash</div> -->
-        <div class="title-controls">
-          <div class="controls">
-            <div class="new-note">Create Note</div>
-            <div class="save-note">Save Note</div>
-          </div>
-          <div class="other-stuff">other stuff</div>
-        </div>
-      </div>
-    </div> <!-- end top-wrapper -->
-
-
-    <div class="bottom-wrapper">
+    <!-- <div class="top-wrapper"> -->
+    <div class="left-wrapper">
+      <div class="top-left">Search bar</div>
       <div class="bottom-left">
         <ul class="note-list">
           <li id="test1" onclick="handler.getNote(id)">
@@ -132,10 +119,25 @@
             <span class="list-date">May 19, 2018</span>
           </li>
         </ul>
-      </div>
+      </div> <!-- end bottom-left -->
+    </div> <!-- end left-wrapper -->
+
+    <div class="right-wrapper">
+      <div class="top-right">
+        <!-- <div class="splash">Title Splash</div> -->
+        <div class="title-controls">
+          <div class="controls">
+            <div class="new-note">Create Note</div>
+            <div class="save-note">Save Note</div>
+          </div>
+          <div class="other-stuff">other stuff</div>
+        </div>
+      </div> <!-- end top-right -->
       <div class="bottom-right">
         <div id="cowport"></div>
-        <textarea id="edit-note" name="" cols="30" rows="10">
+        
+        <!-- <textarea id="edit-note" name="" cols="30" rows="10"> -->
+        <textarea id="edit-note" oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'>
        Weekly Money Snapshot
 
 May 4, 2018 - May 11, 2018
@@ -212,12 +214,34 @@ Bill Name           | Last Bill  | Total Amount Owed
 :---                | :---       | ---:
 Verizon             | 03/25/2018 | 237.16
 AAA (car insurance) | 01/15/2018 | 65.00
-
-
- 
         </textarea>
+      </div> <!-- end bottom-right -->
+    </div> <!-- end right-wrapper -->
+
+    <footer>
+      <div class="copyright">
+        Copyright 2017
+        <span>Peter J. Martinson</span>
       </div>
-    </div> <!-- end bottom-wrapper -->
+      <div class="contact">
+        Contact
+        <span>
+          <a href="mailto:peter.j.martinson@gmail.com">
+            peter.j.martinson@gmail.com
+          </a>
+        </span>
+      </div>
+      <div class="navigation">
+        Navigation
+        <span>
+          <a href="https://peterjmartinson.github.io/index.html">Home </a>&#151;
+          <a href="http://stonetelescope.wordpress.com" target="_blank">Stories </a>&#151;
+          <a href="https://twitter.com/StoneTelescope" target="_blank">Twitter</a>
+        </span>
+      </div>
+    </footer>
+    <!-- <div class="bottom-wrapper"> -->
+    <!-- </div> -->
 
   <script src="./js/nib.js"></script>
 </body>
