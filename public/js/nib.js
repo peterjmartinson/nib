@@ -1,30 +1,8 @@
 let Handler = function() {
 
-  function $get(route, callback) {
-    let DONE = 4, OK = 200,
-        request = new XMLHttpRequest();
-    if (!request) {
-      console.log("Unable to create request.  Giving up.");
-      return false;
-    }
-    request.open("GET", route);
-    request.send();
-    request.onreadystatechange = function() {
-      if (request.readyState === DONE) {
-        if (request.status === OK) {
-          let response = request.responseText;
-          callback(null, response);
-        }
-        else {
-          callback(request.status);
-        }
-      }
-    };
-  }
-
   let getNote = function(id) {
     let route = "/get/:" + id;
-    $get(route, function(err, data) {
+    window.ajax.$get(route, function(err, data) {
       if (err) {
         displayError();
       }
@@ -62,8 +40,7 @@ let Handler = function() {
   }
 
   return {
-    getNote: getNote,
-    $get: $get
+    getNote: getNote
   };
 };
 

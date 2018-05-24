@@ -10,7 +10,7 @@ describe("The canary", function() {
 
 describe("$get", function() {
   it("should exist", function() {
-    assert.equal(typeof window.handler.$get, "function");
+    assert.equal(typeof window.ajax.$get, "function");
   });
 
   // ------------------------------- SET UP
@@ -31,7 +31,7 @@ describe("$get", function() {
     let callback = sinon.spy();
     let test_route = "Alligator Scales";
 
-    window.handler.$get(test_route, callback);
+    window.ajax.$get(test_route, callback);
 
     assert.equal(requests.length, 1);
   });
@@ -40,7 +40,7 @@ describe("$get", function() {
     let callback = sinon.spy();
     let test_route = "Alligator Scales";
 
-    window.handler.$get(test_route, callback);
+    window.ajax.$get(test_route, callback);
 
     assert.equal(requests[0].url, test_route);
   });
@@ -54,7 +54,7 @@ describe("$get", function() {
       response: '{ "_id": "1000", "created_date": "2017-12-30T20:28:32.477Z", "note_text": "Crocodile Tears" }'
     }
 
-    window.handler.$get(test_route, callback);
+    window.ajax.$get(test_route, callback);
     requests[0].respond( xhr.status, xhr.header, xhr.response);
 
     assert.equal(true, callback.called);
@@ -69,7 +69,7 @@ describe("$get", function() {
       response: '{ "_id": "1000", "created_date": "2017-12-30T20:28:32.477Z", "note_text": "Crocodile Tears" }'
     }
 
-    window.handler.$get(test_route, callback);
+    window.ajax.$get(test_route, callback);
     requests[0].respond( xhr.status, xhr.header, xhr.response);
 
     assert.equal(true, callback.calledWith(null, xhr.response));
@@ -84,7 +84,7 @@ describe("$get", function() {
       response: ''
     }
 
-    window.handler.$get(test_route, callback);
+    window.ajax.$get(test_route, callback);
     requests[0].respond( xhr.status, xhr.header, xhr.response);
 
     assert.equal(true, callback.calledWith(xhr.status));
