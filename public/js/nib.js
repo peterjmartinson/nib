@@ -1,19 +1,26 @@
-let Handler = function() {
+let Handler = function()
+{
 
-  let getNote = function(id) {
+  let getNote = function(id)
+  {
     let route = "/get/:" + id;
-    window.ajax.$get(route, function(err, data) {
-      if (err) {
-        displayError();
+    window.model.findById(id, function(err, data)
+    // window.ajax.$get(route, function(err, data)
+    {
+      if (err)
+      {
+        displayError(err);
       }
-      else {
+      else
+      {
         displayNote(data);
       }
     });
   };
 
-  function displayError() {
-    document.getElementById("edit-note").value = "Whoops! No Note!";
+  function displayError(error) {
+    let error_message = error === 404 ? "Whoops! No note!" : "Error: " + error;
+    document.getElementById("edit-note").value = error_message;
   }
 
   function displayNote(data) {
