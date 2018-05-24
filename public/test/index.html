@@ -17,8 +17,11 @@
   <script src="../js/ajax.js"></script>
   <script src="../js/nib.js"></script>
   <script src="../js/dir_test.js"></script>
+  <script src="canary.test.js"></script>
+  <script src="ajax.test.js"></script>
   <script src="nib.test.js"></script>
   <script>
+    const assert = chai.assert;
     mocha.checkLeaks();
     mocha.run();
   </script>
