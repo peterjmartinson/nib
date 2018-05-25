@@ -4,7 +4,7 @@ let Model = function(db) {
   function findById(id, callback) {
     let error, data;
     let query_output = db.filter(function(element) {
-      return element._id = id;
+      return element._id === id;
     });
     if (query_output.length === 0)
     {

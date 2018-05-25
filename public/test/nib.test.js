@@ -3,27 +3,56 @@ describe("getNote()", function() {
   // XMLHttpRequest setup
   let xhr, requests;
 
-  beforeEach(function () {
+  before(function () {
     xhr = sinon.useFakeXMLHttpRequest();
     requests = [];
     xhr.onCreate = function (req) { requests.push(req); };
+    window.notes.push({
+      "_id": "1000",
+      "note_text": "Test Note 1000",
+      "created_date": "2017-12-01T19:34:14.565Z",
+      "modified_date": "",
+      "title": "Test Title 1000"
+    });
+    console.log(window.notes[window.notes.length - 1]);
   });
 
-  afterEach(function () {
+  after(function () {
     xhr.restore();
+    window.notes.pop();
   });
 
   it("should exist", function() {
     assert.equal(typeof window.handler.getNote, "function");
   });
 
-  it("should call the correct route", function() {
+  it("should stick the note into displayNote()", function() {
     let test_id = "1000";
-    let expected_route = "/get/:" + test_id;
+    let expected_data = window.notes[window.notes.length - 1];
+    let resulted_data;
+
+    function displayNote(data) {
+      resulted_data = data;
+      return data;
+    }
 
     window.handler.getNote(test_id);
 
-    assert.equal(requests[0].url, expected_route);
+    assert.equal(resulted_data.note_text, expected_data.note_text);
+
+      
+  });
+
+  it("should get the note's text", function() {
+    let test_id = "1000";
+    let expected_note = "Test Note 1000";
+    let result;
+
+    window.handler.getNote(test_id);
+
+    result = document.getElementById("edit-note").value;
+
+    assert.equal(result.note_text, expected_note);
   });
 
 

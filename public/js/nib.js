@@ -1,9 +1,11 @@
 let Handler = function()
 {
 
-  let getNote = function(id)
+  // let getNote = function(id)
+  function getNote(id)
   {
     let route = "/get/:" + id;
+    console.log(id);
     window.model.findById(id, function(err, data)
     // window.ajax.$get(route, function(err, data)
     {
@@ -18,16 +20,20 @@ let Handler = function()
     });
   };
 
-  function displayError(error) {
+  function displayError(error)
+  {
     let error_message = error === 404 ? "Whoops! No note!" : "Error: " + error;
     document.getElementById("edit-note").value = error_message;
   }
 
-  function displayNote(data) {
-    document.getElementById("edit-note").value = JSON.parse(data).note_text;
+  function displayNote(data)
+  {
+    document.getElementById("edit-note").value = data.note_text;
+    // document.getElementById("edit-note").value = JSON.parse(data).note_text;
   }
 
-  function parseDate(note_object) {
+  function parseDate(note_object)
+  {
     let created_date = new Date(note_object.created_date),
         months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
         display_date = "";
@@ -37,7 +43,8 @@ let Handler = function()
     return display_date;
   }
 
-  function parseNote(note) {
+  function parseNote(note)
+  {
     let created_date = parseDate(JSON.parse(note)),
         display_note = "";
     display_note += "Date: <strong>" + created_date + "</strong><br>";
@@ -46,10 +53,11 @@ let Handler = function()
     return display_note;
   }
 
+  function sayHello() { console.log("hello"); return 1; };
   return {
-    getNote: getNote
+    getNote: getNote,
+    sayHello: sayHello
   };
 };
 
-window.handler = new Handler;
-  
+window.handler = new Handler();
