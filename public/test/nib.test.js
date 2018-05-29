@@ -1,3 +1,5 @@
+let handler = new Handler();
+
 describe("getNote()", function() {
 
   // XMLHttpRequest setup
@@ -23,7 +25,7 @@ describe("getNote()", function() {
   });
 
   it("should exist", function() {
-    assert.equal(typeof window.handler.getNote, "function");
+    assert.equal(typeof handler.getNote, "function");
   });
 
   it("should stick the note into displayNote()", function() {
@@ -36,7 +38,7 @@ describe("getNote()", function() {
       return data;
     }
 
-    window.handler.getNote(test_id);
+    handler.getNote(test_id);
 
     assert.equal(resulted_data.note_text, expected_data.note_text);
 
@@ -48,7 +50,7 @@ describe("getNote()", function() {
     let expected_note = "Test Note 1000";
     let result;
 
-    window.handler.getNote(test_id);
+    handler.getNote(test_id);
 
     result = document.getElementById("edit-note").value;
 
@@ -69,7 +71,7 @@ describe("getNote()", function() {
     let result = '';
     let expected_note = 'Crocodile Tears'
 
-    window.handler.getNote(test_id);
+    handler.getNote(test_id);
     requests[0].respond( xhr.status, xhr.header, xhr.response);
     result = document.getElementById("edit-note").value;
 
@@ -87,7 +89,7 @@ describe("getNote()", function() {
     let error_response = "Whoops! No Note!";
     let result = '';
 
-    window.handler.getNote(test_id);
+    handler.getNote(test_id);
     requests[0].respond( xhr.status, xhr.header, xhr.response);
     result = document.getElementById("edit-note").value;
 

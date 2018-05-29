@@ -3,8 +3,10 @@ let Model = function(db) {
   
   function findById(id, callback) {
     let error, data;
-    let query_output = db.filter(function(element) {
-      return element._id === id;
+    let query_output = db.filter(function(note) {
+      console.log("note._id: " + note._id);
+      console.log("id: " + id);
+      return note._id === id;
     });
     if (query_output.length === 0)
     {
@@ -26,4 +28,4 @@ let Model = function(db) {
   }
 }
 
-window.model = new Model(window.notes);
+// window.model = new Model(window.notes);

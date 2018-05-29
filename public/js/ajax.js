@@ -27,4 +27,4 @@ let Ajax = function() {
   };
 }
 
-window.ajax = new Ajax;
+// window.ajax = new Ajax;
