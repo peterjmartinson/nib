@@ -4,8 +4,6 @@ let Model = function(db) {
   function findById(id, callback) {
     let error, data;
     let query_output = db.filter(function(note) {
-      console.log("note._id: " + note._id);
-      console.log("id: " + id);
       return note._id === id;
     });
     if (query_output.length === 0)
@@ -23,8 +21,14 @@ let Model = function(db) {
 
   }
 
+  function findAll(callback) {
+    let data = db;
+    callback(null, data);
+  }
+
   return {
-    findById: findById
+    findById: findById,
+    findAll: findAll
   }
 }
 
