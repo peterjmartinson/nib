@@ -33,8 +33,6 @@ describe('findById()', function() {
     let expected_note = 'Test Note 1000';
 
     model.findById("1000", function(error, data) {
-      console.log("error: " + error);
-      console.log("data: " + data);
       assert.equal(data.note_text, expected_note);
     });
   });
