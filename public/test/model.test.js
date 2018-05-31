@@ -49,8 +49,6 @@ describe('findById()', function() {
 });
 
 describe('findAll()', function() {
-// Should return an array of note objects
-// Should return an empty array if there are no notes
 
   it("should exist", function() {
     assert.equal(typeof model.findAll, "function");
@@ -76,10 +74,31 @@ describe('findAll()', function() {
       assert.equal(data.length, 2); 
       done();
     });
-    
   });
 
+});
 
+describe('createNote()', function() {
 
+  it("should exist", function() {
+    assert.equal(typeof model.createNote, "function");
+  });
 
 });
+
+describe('deleteNote()', function() {
+
+  it("should exist", function() {
+    assert.equal(typeof model.deleteNote, "function");
+  });
+
+});
+
+describe('updateNote()', function() {
+
+  it("should exist", function() {
+    assert.equal(typeof model.updateNote, "function");
+  });
+
+});
+
