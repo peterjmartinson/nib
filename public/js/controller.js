@@ -1,7 +1,11 @@
 let Controller = function() {
 
-  function editExistingNote(id, callback) {
-    callback(null, 1);
+  function editExistingNote(id, callback)
+  {
+    model.getOneNote(id, function(error, data) {
+      if (error) callback(error);
+      else callback(null, data);
+    });
   }
 
   return {
