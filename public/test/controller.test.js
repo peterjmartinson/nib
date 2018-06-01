@@ -69,35 +69,16 @@ describe('Controller', function() {
     it('should only pass one object to model, not an array', function(done) {
       let test_error = null;
       let test_data = [
-        {
-          "_id": "01",
-          "note_text": "Text of note 01",
-          "created_date": "2017-12-01T19:34:14.565Z",
-          "modified_date": "",
-          "title": "Title 01"
-        },
-        {
-          "_id": "01",
-          "note_text": "Alternate Text of note 01",
-          "created_date": "2017-12-01T19:34:14.565Z",
-          "modified_date": "",
-          "title": "Title 01"
-        }
+        { "_id": "01", "note_text": "Text of note 01", "created_date": "2017-12-01T19:34:14.565Z", "modified_date": "", "title": "Title 01" },
+        { "_id": "01", "note_text": "Alternate Text of note 01", "created_date": "2017-12-01T19:34:14.565Z", "modified_date": "", "title": "Title 01" }
       ];
       model.setTestData(test_data);
       model.setTestError(test_error);
       ctrl.editExistingNote('01', function(error, data) {
-        console.log(data);
         assert.deepEqual(data, test_data[0]);
         done();
       });
     });
-    
-      
-
-
-  
-
   });
 
 });
