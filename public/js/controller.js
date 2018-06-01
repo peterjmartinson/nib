@@ -1,4 +1,4 @@
-let Controller = function() {
+let Controller = function(model, view) {
 
   function editExistingNote(id, callback)
   {

@@ -1,41 +1,55 @@
-(function() {
 
-let ctrl = new Controller();
-let model = {};
-model.getOneNote = function(arg, callback)
-{
-  let data = "called";
-  callback(null, data);
-}
+describe('Controller', function() {
+  let model = {
+    test_data : '',
+    setTestData: function(new_data) {
+      this.test_data = new_data;
+    },
+    getTestData: function() {
+      return this.test_data;
+    },
+  };
 
-describe('editExistingNote()', function() {
-  before(function() {
-  });
+  let view = {};
 
-  after(function() {
-  });
+  let ctrl = new Controller(model, view);
 
-  it('should exist', function() {
-    assert.equal(typeof ctrl.editExistingNote, 'function');
-  });
+  describe('editExistingNote()', function() {
 
-  it("should take a callback", function(done) {
-    ctrl.editExistingNote("1000", function(error, data) {
-      assert.ok(true);
-      done();
+    // =================================================  Setup
+
+    model.getOneNote = function(arg, callback)
+    {
+      let data = this.getTestData();
+      callback(null, data);
+    }
+
+    // =================================================  Tests
+    it('should exist', function() {
+      assert.equal(typeof ctrl.editExistingNote, 'function');
     });
-  });
 
-  it('should call model.getOneNote()', function(done) {
-    let ran = false;
-
-    ctrl.editExistingNote("1000", function(error, data) {
-      assert.equal(data, "called");
-      done();
+    it("should take a callback", function(done) {
+      ctrl.editExistingNote("1000", function(error, data) {
+        assert.ok(true);
+        done();
+      });
     });
+
+    it('should call model.getOneNote()', function(done) {
+      let test_data = 'called'
+      model.setTestData(test_data);
+      ctrl.editExistingNote("1000", function(error, data) {
+        assert.equal(data, test_data);
+        done();
+      });
+    });
+    
       
+
+
+  
+
   });
 
 });
-
-})();
