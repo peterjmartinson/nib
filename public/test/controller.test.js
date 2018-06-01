@@ -66,7 +66,7 @@ describe('Controller', function() {
       });
     });
 
-    it('should only pass one object to model, not an array', function(done) {
+    it('should only pass one object to view, not an array', function(done) {
       let test_error = null;
       let test_data = [
         { "_id": "01", "note_text": "Text of note 01", "created_date": "2017-12-01T19:34:14.565Z", "modified_date": "", "title": "Title 01" },

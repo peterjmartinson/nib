@@ -1,104 +1,55 @@
-let db = [{
-  "_id": "1000",
-  "note_text": "Test Note 1000",
-  "created_date": "2017-12-01T19:34:14.565Z",
-  "modified_date": "",
-  "title": "Test Title 1000"
-  },
-  {
-  "_id": "1001",
-  "note_text": "Test Note 1001",
-  "created_date": "2017-13-01T19:34:14.565Z",
-  "modified_date": "",
-  "title": "Test Title 1001"
-  }
-];
 
-let model = new Model(db);
 
-describe('findById()', function() {
+describe('Model', function() {
+  let store = {
+    test_data : '',
+    setTestData: function(new_data) {
+      this.test_data = new_data;
+    },
+    getTestData: function() {
+      return this.test_data;
+    },
+    test_error : '',
+    setTestError: function(new_error) {
+      this.test_error = new_error;
+    },
+    getTestError: function() {
+      return this.test_error;
+    }
+  };
 
-  it("should exist", function() {
-    assert.equal(typeof model.findById, "function");
-  });
+  let model = new Model(store);
+  
+  describe('getOneNote()', function() {
+    // =================================================  Setup
 
-  it("should take a callback", function() {
-    model.findById("1000", function(error, data) {
-      assert.ok(true);
+    store.findOneById = function(arg, callback)
+    {
+      let data = this.getTestData();
+      let error = this.getTestError();
+      callback(error, data);
+    }
+
+    // =================================================  Tests
+    it('should exist', function() {
+      assert.equal(typeof model.getOneNote, 'function');
     });
-  });
 
-  it('should return a note object', function() {
-    let test_id = "1000";
-    let expected_note = 'Test Note 1000';
-
-    model.findById(test_id, function(error, data) {
-      assert.equal(data.note_text, expected_note);
+    it("should take a callback", function(done) {
+      model.getOneNote("1000", function(error, data) {
+        assert.ok(true);
+        done();
+      });
     });
-  });
 
-  it('should return 404 if a note doesn\'t exist', function() {
-    let test_id = "1002";
-    let expected_error = 404;
-
-    model.findById(test_id, function(error, data) {
-      assert.equal(error, expected_error);
+    it('should call store.findOneById()', function(done) {
+      store.setTestData('called');
+      model.getOneNote('1000', function(error, data) {
+        assert.equal(data, 'called');
+        done()
+      });
     });
-  });
-      
-});
 
-describe('findAll()', function() {
-
-  it("should exist", function() {
-    assert.equal(typeof model.findAll, "function");
-  });
-
-  it("should take a callback", function(done) {
-    model.findAll(function(error, data) {
-      assert.ok(true);
-      done();
-    });
-  });
-
-  it('should return an array', function(done) {
-    model.findAll(function(error, data) {
-      assert.ok(data instanceof Array);
-      done();
-    });
-  });
-
-  it('should return an array of note objects', function(done) {
-    let expected_length = 2; // The number of notes in the test array
-    model.findAll(function(error, data) {
-      assert.equal(data.length, 2); 
-      done();
-    });
   });
 
 });
-
-describe('createNote()', function() {
-
-  it("should exist", function() {
-    assert.equal(typeof model.createNote, "function");
-  });
-
-});
-
-describe('deleteNote()', function() {
-
-  it("should exist", function() {
-    assert.equal(typeof model.deleteNote, "function");
-  });
-
-});
-
-describe('updateNote()', function() {
-
-  it("should exist", function() {
-    assert.equal(typeof model.updateNote, "function");
-  });
-
-});
-
