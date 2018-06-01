@@ -152,24 +152,66 @@
       inside editExistingNote:
       1. highlight the selected note <li>
       2. pass the ID to the controller
+      3. catch controller's response in controller's callback
+
+      view.editExistingNote(id) {
+        ctrl.editExistingNote(id, function(error, note) {
+          view.displayNote(note);
+        });
+      }
+
+      view.displayNote(note)
+      {
+        document.getElementById(
+
     -> Controller (send the ID to the model)
       ctrl.editExistingNote(id)
       inside editExistingNote:
       1. pass the ID to the model
       2. catch the resulting record in a callback
       3. send the note to view.displayEditedNote()
+        no id? send back an empty note immediately
+        no note sent back?  send back an empty note
+        model sends back an error?  send a special error note, that implicates the model
+        more than one note?  nope, it should only accept one object, not an array
+
+      ctrl.editExistingNote(id, callback) {
+        model.getOneNote(id, function(error, data) {
+          if (error) callback(error);
+          else callback(null, data);
+        });
+      });
+
     -> Model (send the ID in a query to the data store)
       model.getOneNote(id)
       inside getOneNote:
       1. pass the ID to storage.findOneById()
       2. catch the resulting record in a callback
       3. send the record back to ctrl.editExistingNote()
+
+      model.getOneNote(id, callback)
+      {
+        store.findOneById(id, function(error, data) {
+          if (error) callback(error);
+          else
+          {
+            callback(null, data);
+          }
+        });
+      }
+
+
     -> Storage (retrieve the record, send back to Model)
       store.findOneById(id)
       inside findOneById:
       1. either get a record from the storage array, or use Ajax to get it from the server database
       2. catch record in a callback
       3. send record back to model.getOneNote()
+
+        store.findOneById(id, callback) {
+          callback(error, data);
+        }
+          
     -> Model (send the record to the controller)
       model.displayEditedNote(record)
       inside displayEditedNote:
