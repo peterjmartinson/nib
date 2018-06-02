@@ -1,8 +1,13 @@
-let Controller = function(model, view) {
+let Controller = function(model, view)
+{
+  'use strict';
 
-  function editExistingNote(id, callback)
+  this.model = model;
+  this.view = view;
+
+  this.editExistingNote = function(id, callback)
   {
-    model.getOneNote(id, function(error, data) {
+    this.model.getOneNote(id, function(error, data) {
       let data_out = data;
       if (error) callback(error);
       if (data instanceof Array)
@@ -11,10 +16,6 @@ let Controller = function(model, view) {
       }
       callback(null, data_out);
     });
-  }
-
-  return {
-    editExistingNote: editExistingNote
   }
 
 }

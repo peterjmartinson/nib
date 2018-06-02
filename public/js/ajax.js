@@ -1,6 +1,9 @@
-let Ajax = function() {
+let Ajax = function()
+{
+  'use strict';
 
-  function $get(route, callback) {
+  this.$get = function(route, callback)
+  {
     let DONE = 4, OK = 200,
         request = new XMLHttpRequest();
     if (!request) {
@@ -22,9 +25,5 @@ let Ajax = function() {
     };
   }
 
-  return {
-    $get: $get
-  };
 }
 
-// window.ajax = new Ajax;

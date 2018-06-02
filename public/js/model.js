@@ -1,14 +1,13 @@
 let Model = function(store) {
 
-  function getOneNote(id, callback) {
+  this.store = store;
+
+  this.getOneNote = function(id, callback) {
     let error = null;
     let data = null;
-    store.findOneById(id, function(error, data) {
+    this.store.findOneById(id, function(error, data) {
       callback(error, data);
     });
   }
 
-  return {
-    getOneNote: getOneNote
-  }
 }

@@ -1,25 +1,20 @@
 let View = function()
 {
-
   'use strict';
 
-  let edited_note_id;
+  this.edited_note_id = '';
+  console.log("first note id:  " + this.edited_note_id);
 
 
-  function editExistingNote(id)
+  this.editExistingNote = function(id)
   {
     this.edited_note_id = id;
+    console.log("second note id:  " + this.edited_note_id);
   }
 
-  function displayNote(note)
+  this.displayNote = function(note)
   {
     document.getElementById('edit-note').value;
-  }
-
-  return
-  {
-    editExistingNote: editExistingNote,
-    displayNote: displayNote
   }
 
 }
