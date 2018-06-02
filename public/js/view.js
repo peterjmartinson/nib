@@ -1,20 +1,23 @@
-let View = function()
+let View = function(controller)
 {
   'use strict';
 
-  this.edited_note_id = '';
-  console.log("first note id:  " + this.edited_note_id);
+  let self = this;
 
+  self.edited_note_id = '';
 
-  this.editExistingNote = function(id)
+  self.editExistingNote = function(id)
   {
-    this.edited_note_id = id;
-    console.log("second note id:  " + this.edited_note_id);
+    self.edited_note_id = id;
+    controller.editExistingNote(id, function(error, data) {
+      self.displayNote(data);
+    });
   }
 
-  this.displayNote = function(note)
+  self.displayNote = function(note)
   {
-    document.getElementById('edit-note').value;
+    document.getElementById('edit-note').value = note.note_text;
+    return 0;
   }
 
 }
