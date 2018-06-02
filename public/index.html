@@ -12,7 +12,7 @@
       <div class="top-left"></div>
       <div class="bottom-left">
         <ul class="note-list">
-          <li id="test1" onclick="handler.getNote(id)">
+          <li id="test1" onclick="view.editExistingNote(id)">
             <span class="list-title">This is the first note</span>
             <br>
             <span class="list-date">May 17, 2018</span>
@@ -247,9 +247,11 @@
     </footer>
 
   <script src="./data/notes.js"></script>
-  <script src="./data/model.js"></script>
+  <script src="./data/storage.js"></script>
   <script src="./js/ajax.js"></script>
-  <script src="./js/handler.js"></script>
+  <script src="./js/model.js"></script>
+  <script src="./js/controller.js"></script>
+  <script src="./js/view.js"></script>
   <script src="./js/nib.js"></script>
 </body>
 </html>

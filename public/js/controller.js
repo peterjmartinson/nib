@@ -1,9 +1,8 @@
-let Controller = function(model, view)
+let Controller = function(model)
 {
   'use strict';
 
   this.model = model;
-  this.view = view;
 
   this.editExistingNote = function(id, callback)
   {

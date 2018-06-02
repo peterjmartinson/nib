@@ -2,22 +2,26 @@ let View = function(controller)
 {
   'use strict';
 
-  let self = this;
 
-  self.edited_note_id = '';
-
-  self.editExistingNote = function(id)
+  function editExistingNote(id)
   {
-    self.edited_note_id = id;
     controller.editExistingNote(id, function(error, data) {
-      self.displayNote(data);
+      console.log('error: ' + error);
+      console.log('data: ' + data);
+      if (error) displayNote(error);
+      else displayNote(data.note_text);
     });
   }
 
-  self.displayNote = function(note)
+  function displayNote(note)
   {
-    document.getElementById('edit-note').value = note.note_text;
+    document.getElementById('edit-note').value = note;
     return 0;
+  }
+
+  return {
+    editExistingNote: editExistingNote,
+    displayNote: displayNote
   }
 
 }

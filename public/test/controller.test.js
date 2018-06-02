@@ -17,9 +17,7 @@ describe('Controller', function() {
     }
   };
 
-  let view = {};
-
-  let ctrl = new Controller(model, view);
+  let ctrl = new Controller(model);
 
   describe('editExistingNote()', function() {
 
