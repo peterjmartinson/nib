@@ -219,6 +219,23 @@
       1. deal with a nonexistent note
       2. pass the note text into the &lt;textarea&gt;
       3. update edited_note_id, or some relatively global ID flag
+
+
+      From ToDo:
+      - view -
+
+      1. View caches all the relevant elements.
+      2. bind() is a generic function that allows Controller to link one of its own functions ('hander') to an event on an element
+      View.prototype.bind = function(event, handler) {}
+
+      - controller -
+
+      1. Binds each of the events using View.prototype.bind()
+      2. Creates a special function to attach to any event
+
+      So, the purpose of View is to present the elements in the page to the Controller, and then ultimately render things to the page.
+
+
         </textarea>
       </div> <!-- end bottom-right -->
     </div> <!-- end right-wrapper -->
